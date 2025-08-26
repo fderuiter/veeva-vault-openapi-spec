@@ -1,0 +1,91 @@
+parameters:
+- name: 'id'
+  in: path
+  required: true
+  description: The document id field value from which to retrieve available user
+    actions.
+  schema:
+    type: string
+- name: 'major_version'
+  in: path
+  required: true
+  description: The major version number of the document.
+  schema:
+    type: string
+- name: 'minor_version'
+  in: path
+  required: true
+  description: The minor version number of the document.
+  schema:
+    type: string
+- name: 'name__v'
+  in: path
+  required: true
+  description: The lifecycle name__v field value from which to retrieve entry
+    criteria. This is retrieved from the Retrieve User Actions request above.
+  schema:
+    type: string
+get:
+  summary: Retrieve Document Entry Criteria
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: minor_version
+    in: path
+    required: true
+    description: The minor_version parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: id
+    in: path
+    required: true
+    description: The id parameter.
+    schema:
+      type: string
+  - name: major_version
+    in: path
+    required: true
+    description: The major_version parameter.
+    schema:
+      type: string
+  - name: name__v
+    in: path
+    required: true
+    description: The name__v parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_documents_id_versions_major_version_minor_version_lifecycle_actions_name_v_entry_requirements_bf12fc_get
+  tags:
+  - Default

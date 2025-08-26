@@ -1,0 +1,135 @@
+parameters:
+- name: 'workflow_id'
+  in: path
+  required: true
+  description: The workflow id field value.
+  schema:
+    type: string
+- name: 'workflow_action'
+  in: path
+  required: true
+  description: The workflow action name retrieved from Retrieve Workflow
+    Actions.
+  schema:
+    type: string
+get:
+  summary: Retrieve Workflow Action Details
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: workflow_id
+    in: path
+    required: true
+    description: The workflow_id parameter.
+    schema:
+      type: string
+  - name: workflow_action
+    in: path
+    required: true
+    description: The workflow_action parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_objectworkflows_workflow_id_actions_workflow_action_844910_get
+  tags:
+  - Default
+post:
+  summary: Initiate Workflow Action
+  parameters:
+  - name: documents__sys
+    in: query
+    required: false
+    description: 'Include the id or ids as a comma-separated list of the document(s)
+      to be removed from a document workflow when using the removecontent action.
+
+      If your workflow_action is remove_content, include the id of the document to
+      remove the workflow. To remove multiple documents, use a comma-separated list
+      of ids.'
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Content-Type
+    in: header
+    required: false
+    example: application/x-www-form-urlencoded
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: workflow_id
+    in: path
+    required: true
+    description: The workflow_id parameter.
+    schema:
+      type: string
+  - name: workflow_action
+    in: path
+    required: true
+    description: The workflow_action parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_objectworkflows_workflow_id_actions_workflow_action_844910_post
+  tags:
+  - Default

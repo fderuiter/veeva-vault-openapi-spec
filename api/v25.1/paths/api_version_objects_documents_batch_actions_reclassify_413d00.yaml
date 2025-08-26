@@ -1,0 +1,59 @@
+parameters: []
+put:
+  summary: Reclassify Multiple Documents
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Content-Type
+    in: header
+    required: false
+    example: text/csv
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: text/csv
+    schema:
+      type: string
+  - name: X-VaultAPI-MigrationMode
+    in: header
+    required: false
+    description: When set to true, Vault allows you to manually set the document
+      number and to update documents to any lifecycle state using the status__v
+      field. All other Document Migration Mode overrides available at document
+      creation are ignored, but do not generate an error message.  You must have
+      the Document Migration permission to use this header. Learn more about <a
+      href="https://platform.veevavault.help/en/gr/54028">Document Migration
+      Mode in Vault Help.</a>
+    example: true
+    schema:
+      type: boolean
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_objects_documents_batch_actions_reclassify_413d00_put
+  tags:
+  - Default

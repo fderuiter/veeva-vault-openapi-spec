@@ -1,0 +1,80 @@
+parameters:
+- name: 'doc_id'
+  in: path
+  required: true
+  description: The video document id field value.
+  schema:
+    type: string
+- name: 'major_version'
+  in: path
+  required: true
+  description: The video document major_version_number__v field value.
+  schema:
+    type: string
+- name: 'minor_version'
+  in: path
+  required: true
+  description: The video document minor_version_number__v field value.
+  schema:
+    type: string
+get:
+  summary: Retrieve Video Annotations
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    description: This `Accept` header only changes the format of the response in
+      the case of an error. On `SUCCESS`, the HTTP Response Header
+      `Content-Type` is set to `text/plain;charset=UnicodeLittle`.
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: doc_id
+    in: path
+    required: true
+    description: The doc_id parameter.
+    schema:
+      type: string
+  - name: major_version
+    in: path
+    required: true
+    description: The major_version parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: minor_version
+    in: path
+    required: true
+    description: The minor_version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_documents_doc_id_versions_major_version_minor_version_export_video_annotations_885102_get
+  tags:
+  - Default

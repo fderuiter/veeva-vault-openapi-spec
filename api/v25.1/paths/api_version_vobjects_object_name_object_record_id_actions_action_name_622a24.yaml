@@ -1,0 +1,145 @@
+parameters:
+- name: 'object_name'
+  in: path
+  required: true
+  description: The object name__v field value.
+  schema:
+    type: string
+- name: 'object_record_id'
+  in: path
+  required: true
+  description: The object record id field value from which to retrieve user
+    actions.
+  schema:
+    type: string
+- name: 'action_name'
+  in: path
+  required: true
+  description: The name of the Objectaction or Objectlifecyclestateuseraction to
+    initiate. You can retrieve this from the Retrieve User Actions request. The
+    format for action_name is Objectaction.vobject.action or
+    Objectlifecyclestateuseraction.vobject.state.action.
+  schema:
+    type: string
+get:
+  summary: Retrieve Object User Actions Details
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: object_name
+    in: path
+    required: true
+    description: The object_name parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: action_name
+    in: path
+    required: true
+    description: The action_name parameter.
+    schema:
+      type: string
+  - name: object_record_id
+    in: path
+    required: true
+    description: The object_record_id parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_vobjects_object_name_object_record_id_actions_action_name_622a24_get
+  tags:
+  - Default
+post:
+  summary: Initiate Object Action on a Single Record
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Content-Type
+    in: header
+    required: false
+    example: application/x-www-form-urlencoded
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: object_name
+    in: path
+    required: true
+    description: The object_name parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: action_name
+    in: path
+    required: true
+    description: The action_name parameter.
+    schema:
+      type: string
+  - name: object_record_id
+    in: path
+    required: true
+    description: The object_record_id parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_vobjects_object_name_object_record_id_actions_action_name_622a24_post
+  tags:
+  - Default

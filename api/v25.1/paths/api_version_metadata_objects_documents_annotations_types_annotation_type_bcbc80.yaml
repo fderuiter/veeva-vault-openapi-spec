@@ -1,0 +1,79 @@
+parameters:
+- name: 'annotation_type'
+  in: path
+  required: true
+  description: 'The name of the annotation type. Valid annotation types include:
+
+    `note__sys`
+
+    `line__sys`
+
+    `document_link__sys`
+
+    `permalink_link__sys`
+
+    `anchor__sys`
+
+    `reply__sys`
+
+    `external_link__sys`
+
+
+    The following annotation types are only valid in Medical and PromoMats Vaults:
+
+
+    `suggested_link__sys`
+
+    `approved_link__sys`
+
+    `auto_link__sys`
+
+    `keyword_link__sys`'
+  schema:
+    type: string
+get:
+  summary: Retrieve Annotation Type Metadata
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: annotation_type
+    in: path
+    required: true
+    description: The annotation_type parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_metadata_objects_documents_annotations_types_annotation_type_bcbc80_get
+  tags:
+  - Default

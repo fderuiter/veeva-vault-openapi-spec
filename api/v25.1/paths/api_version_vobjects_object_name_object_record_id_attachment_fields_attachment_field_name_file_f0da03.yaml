@@ -1,0 +1,135 @@
+parameters:
+- name: 'object_name'
+  in: path
+  required: true
+  description: The object name__v field value. For example, product__v.
+  schema:
+    type: string
+- name: 'object_record_id'
+  in: path
+  required: true
+  description: The object record id field value.
+  schema:
+    type: string
+- name: 'attachment_field_name'
+  in: path
+  required: true
+  description: The name of the Attachment field to update.
+  schema:
+    type: string
+get:
+  summary: Download Attachment Field File
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: object_name
+    in: path
+    required: true
+    description: The object_name parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: object_record_id
+    in: path
+    required: true
+    description: The object_record_id parameter.
+    schema:
+      type: string
+  - name: attachment_field_name
+    in: path
+    required: true
+    description: The attachment_field_name parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_vobjects_object_name_object_record_id_attachment_fields_attachment_field_name_file_f0da03_get
+  tags:
+  - Default
+post:
+  summary: Update Attachment Field File
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: object_name
+    in: path
+    required: true
+    description: The object_name parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: object_record_id
+    in: path
+    required: true
+    description: The object_record_id parameter.
+    schema:
+      type: string
+  - name: attachment_field_name
+    in: path
+    required: true
+    description: The attachment_field_name parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_vobjects_object_name_object_record_id_attachment_fields_attachment_field_name_file_f0da03_post
+  tags:
+  - Default

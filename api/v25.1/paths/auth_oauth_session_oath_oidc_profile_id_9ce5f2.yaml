@@ -1,0 +1,46 @@
+parameters:
+- name: 'oath_oidc_profile_id'
+  in: path
+  required: true
+  example: '{{oath_oidc_profile_id}}'
+  schema:
+    type: string
+post:
+  summary: OAuth 2.0 / OpenID Connect
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: Bearer {{access_token}}
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: oath_oidc_profile_id
+    in: path
+    required: true
+    description: The oath_oidc_profile_id parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: auth_oauth_session_oath_oidc_profile_id_9ce5f2_post
+  tags:
+  - Default

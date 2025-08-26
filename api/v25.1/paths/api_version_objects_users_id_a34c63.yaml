@@ -1,0 +1,114 @@
+parameters:
+- name: 'id'
+  in: path
+  required: true
+  description: The user id field value. Use the value me to get information for
+    the currently authenticated user.
+  schema:
+    type: string
+put:
+  summary: Update Single User
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Content-Type
+    in: header
+    required: false
+    example: application/x-www-form-urlencoded
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: id
+    in: path
+    required: true
+    description: The id parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_objects_users_id_a34c63_put
+  tags:
+  - Default
+get:
+  summary: Retrieve User
+  parameters:
+  - name: exclude_vault_membership
+    in: query
+    required: false
+    description: "Optional: Set to true to omit vault_membership fields. If you don’t
+      need these fields, this may increase performance. If omitted, vault_membership
+      fields are included in the response."
+    schema:
+      type: string
+  - name: exclude_app_licensing
+    in: query
+    required: false
+    description: "Optional: Set to true to omit app_licensing fields. If you don’t
+      need these fields, this may increase performance. If omitted, app_licensing
+      fields are included in the response."
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: id
+    in: path
+    required: true
+    description: The id parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_objects_users_id_a34c63_get
+  tags:
+  - Default

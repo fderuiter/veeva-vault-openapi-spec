@@ -1,0 +1,70 @@
+parameters:
+- name: 'message_type'
+  in: path
+  required: true
+  description: 'The message type name: field_labels__sys, system_messages__sys, notification_template_messages__sys,
+    or user_account_messages__sys.'
+  schema:
+    type: string
+- name: 'lang'
+  in: path
+  required: true
+  description: 'A valid language code value, for example, en. Retrieve available values
+    from the Admin Key (admin_key__sys) field on the Language (language__sys) object.
+    Active and Inactive languages are both valid.
+
+    '
+  schema:
+    type: string
+post:
+  summary: Export Bulk Translation File
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: message_type
+    in: path
+    required: true
+    description: The message_type parameter.
+    schema:
+      type: string
+  - name: lang
+    in: path
+    required: true
+    description: The lang parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_messages_message_type_language_lang_actions_export_49198d_post
+  tags:
+  - Default

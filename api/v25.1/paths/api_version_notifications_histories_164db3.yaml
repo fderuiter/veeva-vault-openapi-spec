@@ -1,0 +1,99 @@
+parameters: []
+get:
+  summary: Retrieve Email Notification Histories
+  parameters:
+  - name: start_date
+    in: query
+    required: false
+    description: "Specify a start date to retrieve notification history. This date
+      cannot be more than 2 years ago. Dates must be in YYYY-MM-DD or YYYY-MM-DDTHH:mm:ssZ
+      format. If time is omitted (THH:mm:ssZ), defaults to the start of the day. If
+      start_date is omitted entirely, defaults to the start of the previous day.\n\
+      If you’ve specified a start_date, you must also specify an end_date."
+    example: YYYY-MM-DD
+    schema:
+      type: string
+  - name: end_date
+    in: query
+    required: false
+    description: "Specify an end date to retrieve notification history. This date
+      cannot be more than 30 days away from the specified start_date. Dates must be
+      in YYYY-MM-DD or YYYY-MM-DDTHH:mm:ssZ format. If time is omitted (THH:mm:ssZ),
+      defaults to the time of the API request.\nIf you’ve specified an end_date, you
+      must also specify a start_date."
+    example: YYYY-MM-DD
+    schema:
+      type: string
+  - name: all_dates
+    in: query
+    required: false
+    description: Set to true to request notification history for all dates. This
+      is the same as requesting a full CSV export from the Vault UI. When
+      requesting a full notification history, you must leave start_date and
+      end_date blank and set format_result to csv. You can request an export of
+      notification history for all_dates once every 24 hours.
+    example: true
+    schema:
+      type: boolean
+  - name: format_result
+    in: query
+    required: false
+    description: To request a downloadable CSV file of your notification
+      history, set this parameter to csv. The response contains a jobId to
+      retrieve the job status, which provides a link to download the CSV file.
+      If omitted, the API returns a JSON response with notification history and
+      does not start a job. If all_dates is true, this parameter must be csv.
+    example: csv
+    schema:
+      type: string
+  - name: limit
+    in: query
+    required: false
+    description: Paginate the results by specifying the maximum number of
+      histories per page in the response. This can be any value between 1 and
+      1000. If omitted, defaults to 200.
+    schema:
+      type: string
+  - name: offset
+    in: query
+    required: false
+    description: Paginate the results displayed per page by specifying the
+      amount of offset from the entry returned. If omitted, defaults to 0.
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_notifications_histories_164db3_get
+  tags:
+  - Default

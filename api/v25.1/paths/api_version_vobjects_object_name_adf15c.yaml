@@ -1,0 +1,48 @@
+parameters:
+- name: object_name
+  in: path
+  required: true
+  description: The object name__v field value (product__v, country__v,
+    custom_object__c, etc.).
+  schema:
+    type: string
+get:
+  summary: Retrieve Object Record Collection
+  parameters:
+  - name: fields
+    in: query
+    required: false
+    description: To specify fields to retrieve, include the parameter
+      fields={FIELD_NAMES}. See the next request below for details.
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_vobjects_object_name_adf15c_get
+  tags:
+  - Default

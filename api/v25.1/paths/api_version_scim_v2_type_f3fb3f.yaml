@@ -1,0 +1,114 @@
+parameters:
+- name: 'type'
+  in: path
+  required: true
+  description: The resource type to retrieve. You can retrieve all available
+    types from the Retrieve All SCIM Resource Types endpoint, where the value
+    for this parameter is the endpoint value.
+  schema:
+    type: string
+get:
+  summary: Retrieve SCIM Resources
+  parameters:
+  - name: filter
+    in: query
+    required: false
+    description: 'Optional: Filter for a specific attribute value. Must be in the
+      format {attribute} eq "{value}". For example, to filter for a particular user
+      name, userName eq "john". Complex expressions are not supported, and eq is the
+      only supported operator.'
+    schema:
+      type: string
+  - name: attributes
+    in: query
+    required: false
+    description: 'Optional: Include specified attributes only. Enter multiple values
+      in a comma separated list. For example, to include only user name and email
+      in the response, attributes=userName,emails. Note that the schemas and id attributes
+      are always returned.'
+    schema:
+      type: string
+  - name: excludedAttributes
+    in: query
+    required: false
+    description: 'Optional: Exclude specific attributes from the response. Enter multiple
+      values in a comma separated list. For example, to exclude user name and email
+      from the response, excludedAttributes=userName,emails. Note that the schemas
+      and id attributes are always returned and cannot be excluded.'
+    schema:
+      type: string
+  - name: sortBy
+    in: query
+    required: false
+    description: 'Optional: Specify an attribute or sub-attribute to order the response.
+      For example, you can sort by the displayName attribute, or the name.familyName
+      sub-attribute. If omitted, the response is sorted by id. Note that the following
+      attributes are not supported:
+
+      securityPolicy
+
+      securityProfile
+
+      locale
+
+      preferredLanguage'
+    schema:
+      type: string
+  - name: sortOrder
+    in: query
+    required: false
+    description: 'Optional: Specify the number of query results per page, for example,
+      10. Negative values are treated as 0, and 0 returns no results except for totalResults.
+      If omitted, defaults to 1000.'
+    schema:
+      type: string
+  - name: startIndex
+    in: query
+    required: false
+    description: 'Optional: Specify the index of the first result. For example, 10
+      would omit the first 9 results and begin on result 10. Omission, negative values,
+      and 0 is treated as 1.'
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/scim+json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: type
+    in: path
+    required: true
+    description: The type parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_scim_v2_type_f3fb3f_get
+  tags:
+  - Default

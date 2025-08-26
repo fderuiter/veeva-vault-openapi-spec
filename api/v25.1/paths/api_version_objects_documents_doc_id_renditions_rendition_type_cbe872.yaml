@@ -1,0 +1,242 @@
+parameters:
+- name: 'doc_id'
+  in: path
+  required: true
+  description: The document id field value.
+  schema:
+    type: string
+- name: 'rendition_type'
+  in: path
+  required: true
+  description: The document rendition type.
+  schema:
+    type: string
+get:
+  summary: Download Document Rendition File
+  parameters:
+  - name: steadyState
+    in: query
+    required: false
+    description: 'Set to true to download a rendition (file) from the latest steady
+      state version (1.0, 2.0, etc.) of a document.
+
+      '
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: rendition_type
+    in: path
+    required: true
+    description: The rendition_type parameter.
+    schema:
+      type: string
+  - name: doc_id
+    in: path
+    required: true
+    description: The doc_id parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_documents_doc_id_renditions_rendition_type_cbe872_get
+  tags:
+  - Default
+post:
+  summary: Add Single Document Rendition
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: Content Type
+    in: header
+    required: false
+    example: multipart/form-data
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: rendition_type
+    in: path
+    required: true
+    description: The rendition_type parameter.
+    schema:
+      type: string
+  - name: doc_id
+    in: path
+    required: true
+    description: The doc_id parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_documents_doc_id_renditions_rendition_type_cbe872_post
+  tags:
+  - Default
+put:
+  summary: Replace Document Rendition
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: Content-Type
+    in: header
+    required: false
+    example: multipart/form-data
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: rendition_type
+    in: path
+    required: true
+    description: The rendition_type parameter.
+    schema:
+      type: string
+  - name: doc_id
+    in: path
+    required: true
+    description: The doc_id parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_documents_doc_id_renditions_rendition_type_cbe872_put
+  tags:
+  - Default
+delete:
+  summary: Delete Single Document Rendition
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: rendition_type
+    in: path
+    required: true
+    description: The rendition_type parameter.
+    schema:
+      type: string
+  - name: doc_id
+    in: path
+    required: true
+    description: The doc_id parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_documents_doc_id_renditions_rendition_type_cbe872_delete
+  tags:
+  - Default

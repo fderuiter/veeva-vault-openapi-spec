@@ -1,0 +1,215 @@
+parameters: []
+get:
+  summary: Retrieve Lifecycle Role Assignment Rules (Default & Override)
+  parameters:
+  - name: lifecycle__v
+    in: query
+    required: false
+    description: 'Include the name of the lifecycle from which to retrieve information.
+      For example: lifecycle_v=general_lifecycle__c'
+    schema:
+      type: string
+  - name: role__v
+    in: query
+    required: false
+    description: 'Include the name of the role from which to retrieve information.
+      For example: role__v=editor__c'
+    schema:
+      type: string
+  - name: product__v
+    in: query
+    required: false
+    description: 'Include the ID/name of a specific product to see product-based override
+      rules to default users/allowed users for the lifecycle role. For example: product__v=0PR0011001
+      or product__v.name__v=CholeCap'
+    schema:
+      type: string
+  - name: country__v
+    in: query
+    required: false
+    description: 'Include the ID/name of a specific country to see country-based override
+      rules to default users/allowed users for the lifecycle role. For example: country__v=0CR0022002
+      or country__v.name__v=United States'
+    schema:
+      type: string
+  - name: study__v
+    in: query
+    required: false
+    description: 'In eTMF Vaults only. Include the ID/name of a specific study to
+      see study-based override rules to default users/allowed users for the lifecycle
+      role. For example: study__v=0ST0021J01 or study__v.name__v=CholeCap Study'
+    schema:
+      type: string
+  - name: study_country__v
+    in: query
+    required: false
+    description: 'In eTMF Vaults only. Include the ID/name of a specific study country
+      to see study country-based override rules to default users/allowed users for
+      the lifecycle role. For example: study_country__v=0SC0001001 or study_country__v.name__v=Germany'
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_configuration_role_assignment_rule_5f8165_get
+  tags:
+  - Default
+post:
+  summary: Create Lifecycle Role Assignment Override Rules
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: Content-Type
+    in: header
+    required: false
+    example: application/x-www-form-urlencoded
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_configuration_role_assignment_rule_5f8165_post
+  tags:
+  - Default
+put:
+  summary: Update Lifecycle Role Assignment Rules (Default & Override)
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: Content-Type
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_configuration_role_assignment_rule_5f8165_put
+  tags:
+  - Default
+delete:
+  summary: Delete Lifecycle Role Assignment Override Rules
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_configuration_role_assignment_rule_5f8165_delete
+  tags:
+  - Default

@@ -1,0 +1,216 @@
+parameters:
+- name: 'object_name'
+  in: path
+  required: true
+  description: The object name__v field value (product__v, country__v,
+    custom_object__c, etc.).
+  schema:
+    type: string
+post:
+  summary: Create & Upsert Object Records
+  parameters:
+  - name: idParam
+    in: query
+    required: false
+    description: To upsert object records, add `idParam={field_name}` to the
+      request endpoint. You can use any object field which has `unique` set to
+      `true` in the object metadata. For example, `idParam=external_id__v`.
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Content-Type
+    in: header
+    required: false
+    description: Can be text/csv or application/json
+    example: text/csv
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    description: Can be text/csv or application/json
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-MigrationMode
+    in: header
+    required: false
+    description: If set to `true`, Vault allows you to create or update object
+      records in a noninitial state and with minimal validation, create inactive
+      records, and set standard and system-managed fields such as
+      `created_by__v`. Does not bypass record triggers. Use the
+      `X-VaultAPI-NoTriggers` header to bypass all standard and custom SDK
+      triggers. You must have the Record Migration permission to use this
+      header.
+    example: true
+    schema:
+      type: boolean
+  - name: X-VaultAPI-NoTriggers
+    in: header
+    required: false
+    description: If set to `true` and Record Migration Mode is enabled, it
+      bypasses all standard and custom SDK triggers.
+    example: true
+    schema:
+      type: boolean
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: object_name
+    in: path
+    required: true
+    description: The object_name parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_vobjects_object_name_83c9bc_post
+  tags:
+  - Default
+put:
+  summary: Update Object Records
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Content-Type
+    in: header
+    required: false
+    description: Can be text/csv or application/json
+    example: text/csv
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    description: Can be text/csv or application/json
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-MigrationMode
+    in: header
+    required: false
+    description: If set to `true`, Vault allows you to update object records in
+      a noninitial state and with minimal validation, create inactive records,
+      and set standard and system-managed fields such as `created_by__v`. Does
+      not bypass record triggers. Use the `X-VaultAPI-NoTriggers` header to
+      bypass all standard and custom SDK triggers. You must have the Record
+      Migration permission to use this header.
+    example: true
+    schema:
+      type: boolean
+  - name: X-VaultAPI-NoTriggers
+    in: header
+    required: false
+    description: If set to `true` and Record Migration Mode is enabled, it
+      bypasses all standard and custom SDK triggers.
+    example: true
+    schema:
+      type: boolean
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: object_name
+    in: path
+    required: true
+    description: The object_name parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_vobjects_object_name_83c9bc_put
+  tags:
+  - Default
+delete:
+  summary: Delete Object Records
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Content-Type
+    in: header
+    required: false
+    description: Can be text/csv or application/json
+    example: text/csv
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    description: Can be text/csv or application/json
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: object_name
+    in: path
+    required: true
+    description: The object_name parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_vobjects_object_name_83c9bc_delete
+  tags:
+  - Default

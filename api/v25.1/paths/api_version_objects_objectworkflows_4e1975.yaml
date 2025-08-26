@@ -1,0 +1,117 @@
+parameters: []
+get:
+  summary: Retrieve Workflows
+  parameters:
+  - name: object__v
+    in: query
+    required: false
+    description: 'To retrieve all workflows configured on an object, include the Vault
+      object name__v and object record id field values as ?object__v={name__v}&record_id__v={id}.
+      These two parameters are required when the participant parameter is not used.
+
+      '
+    schema:
+      type: string
+  - name: record_id__v
+    in: query
+    required: false
+    description: 'To retrieve all workflows configured on an object, include the Vault
+      object name__v and object record id field values as ?object__v={name__v}&record_id__v={id}.
+      These two parameters are required when the participant parameter is not used.
+
+      '
+    schema:
+      type: string
+  - name: participant
+    in: query
+    required: false
+    description: 'To retrieve all workflows available to a particular user, include
+      the user id field value as ?participant={id}. To retrieve your own workflows,
+      set this value to ?participant=me. This parameter is required when the object__v
+      and record_id__v parameters are not used.
+
+      '
+    schema:
+      type: string
+  - name: status__v
+    in: query
+    required: false
+    description: 'To retrieve all workflows with specific statuses, include one or
+      more status name__v field values. For example: status__v=active__v, status__v=active__v,completed__v.
+      Workflows with `status__v=active__v` are in progress for the indicated object
+      record. Valid statuses include:
+
+      active__v
+
+      completed__v
+
+      cancelled__v'
+    schema:
+      type: string
+  - name: offset
+    in: query
+    required: false
+    description: 'This parameter is used to paginate the results. It specifies the
+      amount of offset from the first record returned. Vault returns 200 records per
+      page by default. If you are viewing the first 200 results (page 1) and want
+      to see the next page, set this to ?offset=201.
+
+      '
+    schema:
+      type: string
+  - name: page_size
+    in: query
+    required: false
+    description: 'This parameter is used to paginate the results. It specifies the
+      size number of records to display per page. Vault returns 200 records per page
+      by default. You can set this value lower or as high as 1000 records per page.
+      For example: ?page_size=1000.
+
+      '
+    schema:
+      type: string
+  - name: loc
+    in: query
+    required: false
+    description: 'When localized (translated) strings are available, retrieve them
+      by including ?loc=true.
+
+      '
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_objects_objectworkflows_4e1975_get
+  tags:
+  - Default

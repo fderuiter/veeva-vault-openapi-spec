@@ -1,0 +1,130 @@
+parameters:
+- name: 'id'
+  in: path
+  required: true
+  description: The id of the user you wish to update.
+  schema:
+    type: string
+get:
+  summary: Retrieve Single User with SCIM
+  parameters:
+  - name: filter
+    in: query
+    required: false
+    description: 'Optional: Filter for a specific attribute value. Must be in the
+      format {attribute} eq "{value}". For example, to filter for a particular user
+      name, userName eq "john". Complex expressions are not supported, and eq is the
+      only supported operator.'
+    schema:
+      type: string
+  - name: attributes
+    in: query
+    required: false
+    description: 'Optional: Include specified attributes only. Enter multiple values
+      in a comma separated list. For example, to include only user name and email
+      in the response, attributes=userName,emails. Note that the schemas and id attributes
+      are always returned.'
+    schema:
+      type: string
+  - name: excludedAttributes
+    in: query
+    required: false
+    description: 'Optional: Exclude specific attributes from the response. Enter multiple
+      values in a comma separated list. For example, to exclude user name and email
+      from the response, excludedAttributes=userName,emails. Note that the schemas
+      and id attributes are always returned and cannot be excluded.'
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/scim+json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: id
+    in: path
+    required: true
+    description: The id parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_scim_v2_Users_id_7fbb85_get
+  tags:
+  - Default
+put:
+  summary: Update User with SCIM
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/scim+json
+    schema:
+      type: string
+  - name: Content-Type
+    in: header
+    required: false
+    example: application/scim+json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: id
+    in: path
+    required: true
+    description: The id parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_scim_v2_Users_id_7fbb85_put
+  tags:
+  - Default
