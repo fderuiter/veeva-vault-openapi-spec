@@ -1,0 +1,129 @@
+parameters:
+- name: 'audit_trail_type'
+  in: path
+  required: true
+  description: The name of the specified audit type (document_audit_trail,
+    object_audit_trail, etc). Use the Retrieve Audit Types API to retrieve types
+    available in your Vault. Requests for login_audit_trail only accept one
+    request per user at a time.
+  schema:
+    type: string
+get:
+  summary: Retrieve Audit Details
+  parameters:
+  - name: start_date
+    in: query
+    required: false
+    description: Specify a start date to retrieve audit information. This date
+      cannot be more than 30 days ago. Dates must be YYYY-MM-DDTHH:MM:SSZ
+      format, for example, 7AM on January 15, 2016 would use
+      2016-01-15T07:00:00Z. If omitted, defaults to the last 30 days.
+    schema:
+      type: string
+  - name: end_date
+    in: query
+    required: false
+    description: Specify an end date to retrieve audit information. This date
+      cannot be more than 30 days ago. Dates must be YYYY-MM-DDTHH:MM:SSZ
+      format, for example, 7AM on January 15, 2016 would use
+      2016-01-15T07:00:00Z. If omitted, defaults to the last 30 days.
+    schema:
+      type: string
+  - name: all_dates
+    in: query
+    required: false
+    description: Set to true to request audit information for all dates. You
+      must leave start_date and end_date blank when requesting an export of a
+      full audit trail.
+    schema:
+      type: string
+  - name: format_result
+    in: query
+    required: false
+    description: To request a downloadable CSV file of your audit details, use
+      csv. The response contains a jobId to retrieve the job status, which
+      contains a link to download the CSV file. If omitted, the API returns a
+      JSON response and does not start a job. If all_dates is true, this
+      parameter is required.
+    schema:
+      type: string
+  - name: limit
+    in: query
+    required: false
+    description: Paginate the results by specifying the maximum number of
+      histories per page in the response. This can be any value between 1 and
+      1000. If omitted, defaults to 200.
+    schema:
+      type: string
+  - name: offset
+    in: query
+    required: false
+    description: Paginate the results displayed per page by specifying the
+      amount of offset from the entry returned. For example, if you are viewing
+      the first 50 results (page 1) and want to see the next page, set this to
+      offset=51. If omitted, defaults to 0.
+    schema:
+      type: string
+  - name: objects
+    in: query
+    required: false
+    description: This is an optional parameter when specifying
+      object_audit_trail as the {audit_trail_type}. Provide a comma-separated
+      list of one or more object names to retrieve their audit details. For
+      example, objects=product__v,country__v. If omitted, defaults to all
+      objects.
+    schema:
+      type: string
+  - name: events
+    in: query
+    required: false
+    description: This is an optional parameter when specifying
+      object_audit_trail or document_audit_trail as the {audit_trail_type}.
+      Provide a comma-separated list of one or more audit events to retrieve
+      their audit details. For example, events=Edit,Delete,TaskAssignment. If
+      omitted, defaults to all audit events. See Vault Help for full lists of
+      object audit events and document audit events.
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: audit_trail_type
+    in: path
+    required: true
+    description: The audit_trail_type parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_audittrail_audit_trail_type_e5068c_get
+  tags:
+  - Default

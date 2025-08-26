@@ -1,0 +1,100 @@
+parameters:
+- name: 'object_name'
+  in: path
+  required: true
+  description: The name of the object for which to check the status of a Roll-up
+    field recalculation.
+  schema:
+    type: string
+post:
+  summary: Recalculate Roll-up Fields
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: object_name
+    in: path
+    required: true
+    description: The object_name parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_vobjects_object_name_actions_recalculaterollups_20d7ae_post
+  tags:
+  - Default
+get:
+  summary: Retrieve Roll-up Field Recalculation Status
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: object_name
+    in: path
+    required: true
+    description: The object_name parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_vobjects_object_name_actions_recalculaterollups_20d7ae_get
+  tags:
+  - Default

@@ -1,0 +1,136 @@
+parameters:
+- name: 'doc_id'
+  in: path
+  required: true
+  description: The document id field value.
+  schema:
+    type: string
+- name: 'major_version'
+  in: path
+  required: true
+  description: The document major_version_number__v field value.
+  schema:
+    type: string
+- name: 'minor_version'
+  in: path
+  required: true
+  description: The document minor_version_number__v field value.
+  schema:
+    type: string
+get:
+  summary: Read Annotations by Document Version and Type
+  parameters:
+  - name: limit
+    in: query
+    required: false
+    description: Paginate the results by specifying the maximum number of
+      records per page in the response. This can be any value between 1 and 500.
+      If omitted, defaults to 500. Values greater than 500 are ignored.
+    schema:
+      type: string
+  - name: offset
+    in: query
+    required: false
+    description: This parameter is used to paginate the results. It specifies
+      the amount of offset from the first record returned. Vault returns 200
+      records per page by default. If you are viewing the first 200 results
+      (page 1) and want to see the next page, set this to offset=201.
+    schema:
+      type: string
+  - name: annotation_types
+    in: query
+    required: false
+    description: 'The type(s) of annotations to retrieve. For example, note__sys,anchor__sys.
+      If omitted, Vault returns all annotations. Valid annotation types include:
+
+      `note__sys`
+
+      `line__sys`
+
+      `document_link__sys`
+
+      `permalink_link__sys`
+
+      `anchor__sys`
+
+      `reply__sys`
+
+      `external_link__sys`
+
+
+      The following annotation types are only valid in PromoMats Vaults:
+
+
+      `suggested_link__sys`
+
+      `approved_link__sys`
+
+      `auto_link__sys`
+
+      `keyword_link__sys`
+
+      '
+    schema:
+      type: string
+  - name: pagination_id
+    in: query
+    required: false
+    description: A unique identifier used to load requests with paginated
+      results.
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: doc_id
+    in: path
+    required: true
+    description: The doc_id parameter.
+    schema:
+      type: string
+  - name: major_version
+    in: path
+    required: true
+    description: The major_version parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: minor_version
+    in: path
+    required: true
+    description: The minor_version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_documents_doc_id_versions_major_version_minor_version_annotations_76d044_get
+  tags:
+  - Default

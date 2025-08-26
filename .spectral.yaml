@@ -1,0 +1,7 @@
+extends: ["spectral:oas", "spectral:asyncapi"]
+rules:
+  oas3-schema: error
+  oas3-api-servers: error
+  operation-description: warn
+  operation-operationId-unique: error
+  path-params: error

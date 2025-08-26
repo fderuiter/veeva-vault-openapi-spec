@@ -1,0 +1,65 @@
+parameters:
+- name: 'job_id'
+  in: path
+  required: true
+  description: The id value of the requested extract job.
+  schema:
+    type: string
+- name: 'task_id'
+  in: path
+  required: true
+  description: The id value of the requested extract task.
+  schema:
+    type: string
+get:
+  summary: Retrieve Loader Extract Results
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: text/csv
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: task_id
+    in: path
+    required: true
+    description: The task_id parameter.
+    schema:
+      type: string
+  - name: job_id
+    in: path
+    required: true
+    description: The job_id parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_services_loader_job_id_tasks_task_id_results_737c26_get
+  tags:
+  - Default

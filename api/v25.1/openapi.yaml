@@ -1,0 +1,776 @@
+openapi: 3.0.0
+info:
+  title: Veeva Vault API v25.1
+  version: "25.1"
+  description: The latest GA version of the Vault REST API.
+  contact:
+    name: Veeva Systems
+    url: https://www.veeva.com
+    email: api.support@veeva.com
+servers:
+- url: '{vaultDNS}'
+  variables:
+    vaultDNS:
+      default: https://example.veevavault.com
+      description: The DNS name of your Vault
+- url: login.veevavault.com
+paths:
+  /api/{version}/delegation/vaults:
+    $ref: ./paths/api_version_delegation_vaults_097547.yaml
+  /api/{version}/delegation/login:
+    $ref: ./paths/api_version_delegation_login_d19c7b.yaml
+  /api/{version}/auth:
+    $ref: ./paths/api_version_auth_5e8772.yaml
+  /auth/oauth/session/{oath_oidc_profile_id}:
+    $ref: ./paths/auth_oauth_session_oath_oidc_profile_id_9ce5f2.yaml
+  /api:
+    $ref: ./paths/api_b29f6a.yaml
+  /auth/discovery:
+    $ref: ./paths/auth_discovery_900da1.yaml
+  /api/{version}/keep-alive:
+    $ref: ./paths/api_version_keep_alive_9baa80.yaml
+  /api/{version}/objects/users/me:
+    $ref: ./paths/api_version_objects_users_me_d6f71e.yaml
+  /api/{version}/session:
+    $ref: ./paths/api_version_session_3dcf93.yaml
+  /api/{version}/services/directdata/files:
+    $ref: ./paths/api_version_services_directdata_files_dedf6f.yaml
+  /api/{version}/services/directdata/files/{name}:
+    $ref: ./paths/api_version_services_directdata_files_name_5ad441.yaml
+  /api/{version}/query:
+    $ref: ./paths/api_version_query_70a0e1.yaml
+  /api/{version}/query/{next_page}:
+    $ref: ./paths/api_version_query_next_page_016c14.yaml
+  /api/{version}/configuration/{component_type}:
+    $ref: ./paths/api_version_configuration_component_type_d6ca32.yaml
+  /api/mdl/components/{component_type_and_record_name}:
+    $ref: ./paths/api_mdl_components_component_type_and_record_name_91d8d5.yaml
+  /api/mdl/files:
+    $ref: ./paths/api_mdl_files_8cb2e7.yaml
+  /api/mdl/components/{component_type_and_record_name}/files:
+    $ref:
+      ./paths/api_mdl_components_component_type_and_record_name_files_2ce312.yaml
+  /api/mdl/execute_async:
+    $ref: ./paths/api_mdl_execute_async_3c18e8.yaml
+  /api/mdl/execute_async/{job_id}/results:
+    $ref: ./paths/api_mdl_execute_async_job_id_results_5c6cf3.yaml
+  /api/{version}/metadata/vobjects/{object_name}/actions/canceldeployment:
+    $ref:
+      ./paths/api_version_metadata_vobjects_object_name_actions_canceldeployment_c4012c.yaml
+  /api/mdl/execute:
+    $ref: ./paths/api_mdl_execute_31af3b.yaml
+  /api/{version}/metadata/components:
+    $ref: ./paths/api_version_metadata_components_5f70e9.yaml
+  /api/{version}/metadata/components/{component_type}:
+    $ref: ./paths/api_version_metadata_components_component_type_489110.yaml
+  /api/{version}/metadata/objects/documents/properties:
+    $ref: ./paths/api_version_metadata_objects_documents_properties_09e3c1.yaml
+  /api/{version}/metadata/objects/documents/properties/find_common:
+    $ref:
+      ./paths/api_version_metadata_objects_documents_properties_find_common_2aaa5e.yaml
+  /api/{version}/metadata/objects/documents/types:
+    $ref: ./paths/api_version_metadata_objects_documents_types_b5f2d5.yaml
+  /api/{version}/metadata/objects/documents/types/{type}:
+    $ref: ./paths/api_version_metadata_objects_documents_types_type_5aa90d.yaml
+  /api/{version}/metadata/objects/documents/types/{type}/subtypes/{subtype}:
+    $ref:
+      ./paths/api_version_metadata_objects_documents_types_type_subtypes_subtype_f53738.yaml
+  /api/{version}/metadata/objects/documents/types/{type}/subtypes/{subtype}/classifications/{classification}:
+    $ref:
+      ./paths/api_version_metadata_objects_documents_types_type_subtypes_subtype_classifications_classification_b20c9e.yaml
+  /api/{version}/objects/documents:
+    $ref: ./paths/api_version_objects_documents_6d1e77.yaml
+  /api/{version}/objects/documents/{doc_id}:
+    $ref: ./paths/api_version_objects_documents_doc_id_aa8aba.yaml
+  /api/{version}/objects/documents/{doc_id}/versions:
+    $ref: ./paths/api_version_objects_documents_doc_id_versions_fbe03b.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_24b0b6.yaml
+  /api/{version}/objects/documents/{doc_id}/file:
+    $ref: ./paths/api_version_objects_documents_doc_id_file_3a8d22.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/file:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_file_47aaeb.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/thumbnail:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_thumbnail_10941b.yaml
+  /api/{version}/objects/documents/batch:
+    $ref: ./paths/api_version_objects_documents_batch_d714d7.yaml
+  /api/{version}/objects/documents/batch/actions/reclassify:
+    $ref:
+      ./paths/api_version_objects_documents_batch_actions_reclassify_413d00.yaml
+  /api/{version}/objects/documents/versions/batch:
+    $ref: ./paths/api_version_objects_documents_versions_batch_851b10.yaml
+  /api/{version}/objects/deletions/documents:
+    $ref: ./paths/api_version_objects_deletions_documents_f52a19.yaml
+  /api/{version}/metadata/objects/documents/lock:
+    $ref: ./paths/api_version_metadata_objects_documents_lock_b15af8.yaml
+  /api/{version}/objects/documents/{doc_id}/lock:
+    $ref: ./paths/api_version_objects_documents_doc_id_lock_aeb9f0.yaml
+  /api/{version}/objects/documents/batch/lock:
+    $ref: ./paths/api_version_objects_documents_batch_lock_f14311.yaml
+  /api/{version}/objects/documents/{doc_id}/renditions:
+    $ref: ./paths/api_version_objects_documents_doc_id_renditions_5911c0.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/renditions:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_renditions_696458.yaml
+  /api/{version}/objects/documents/{doc_id}/renditions/{rendition_type}:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_renditions_rendition_type_cbe872.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/renditions/{rendition_type}:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_renditions_rendition_type_e12540.yaml
+  /api/{version}/objects/documents/renditions/batch:
+    $ref: ./paths/api_version_objects_documents_renditions_batch_209239.yaml
+  /api/{version}/objects/documents/batch/actions/rerender:
+    $ref:
+      ./paths/api_version_objects_documents_batch_actions_rerender_7c85ed.yaml
+  /api/{version}/objects/documents/{doc_id}/attachments:
+    $ref: ./paths/api_version_objects_documents_doc_id_attachments_b4a3fe.yaml
+  /api/{version}/objects/documents/{doc_id}/version/{major_version}/{minor_version}/attachments:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_version_major_version_minor_version_attachments_d4ad39.yaml
+  /api/{version}/objects/documents/{doc_id}/attachments/{attachment_id}/versions:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_attachments_attachment_id_versions_b7dea9.yaml
+  ? /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/attachments/{attachment_id}/versions/{attachment_version}
+  : $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_attachments_attachment_id_versions_attachment_version_a4d345.yaml
+  /api/{version}/objects/documents/{doc_id}/attachments/{attachment_id}:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_attachments_attachment_id_49597a.yaml
+  /api/{version}/objects/documents/{doc_id}/attachments/{attachment_id}/versions/{attachment_version}:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_attachments_attachment_id_versions_attachment_version_e989cc.yaml
+  /api/{version}/objects/documents/{doc_id}/attachments/{attachment_id}/file:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_attachments_attachment_id_file_658e48.yaml
+  /api/{version}/objects/documents/{doc_id}/attachments/{attachment_id}/versions/{attachment_version}/file:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_attachments_attachment_id_versions_attachment_version_file_857faf.yaml
+  ? /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/attachments/{attachment_id}/versions/{attachment_version}/file
+  : $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_attachments_attachment_id_versions_attachment_version_file_ae6b5a.yaml
+  /api/{version}/objects/documents/{doc_id}/attachments/file:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_attachments_file_730bd3.yaml
+  /api/{version}/objects/documents/{doc_id}/{major_version}/{minor_version}/attachments/file:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_major_version_minor_version_attachments_file_07a82b.yaml
+  /api/{version}/objects/documents/attachments/batch:
+    $ref: ./paths/api_version_objects_documents_attachments_batch_addd64.yaml
+  /api/{version}/metadata/objects/documents/annotations/types/{annotation_type}:
+    $ref:
+      ./paths/api_version_metadata_objects_documents_annotations_types_annotation_type_bcbc80.yaml
+  /api/{version}/metadata/objects/documents/annotations/placemarks/types/{placemark_type}:
+    $ref:
+      ./paths/api_version_metadata_objects_documents_annotations_placemarks_types_placemark_type_e2d483.yaml
+  /api/{version}/metadata/objects/documents/annotations/references/types/{reference_type}:
+    $ref:
+      ./paths/api_version_metadata_objects_documents_annotations_references_types_reference_type_780416.yaml
+  /api/{version}/objects/documents/annotations/batch:
+    $ref: ./paths/api_version_objects_documents_annotations_batch_5bb600.yaml
+  /api/{version}/objects/documents/annotations/replies/batch:
+    $ref:
+      ./paths/api_version_objects_documents_annotations_replies_batch_ad714f.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/annotations:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_annotations_76d044.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/annotations/{annotation_id}:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_annotations_annotation_id_c803be.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/annotations/{annotation_id}/replies:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_annotations_annotation_id_replies_e4c777.yaml
+  /api/{version}/objects/documents/{doc_id}/annotations/file:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_annotations_file_494d8a.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/annotations/file:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_annotations_file_a17a0b.yaml
+  /api/{version}/objects/documents/{doc_id}/anchors:
+    $ref: ./paths/api_version_objects_documents_doc_id_anchors_49c266.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/doc-export-annotations-to-csv:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_doc_export_annotations_to_csv_a86be8.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/export-video-annotations:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_export_video_annotations_885102.yaml
+  /api/{version}/metadata/objects/documents/types/{type}/relationships:
+    $ref:
+      ./paths/api_version_metadata_objects_documents_types_type_relationships_63a28b.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/relationships:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_relationships_bd81d7.yaml
+  /api/{version}/objects/documents/relationships/batch:
+    $ref: ./paths/api_version_objects_documents_relationships_batch_68fdee.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/relationships/{relationship_id}:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_relationships_relationship_id_453aa9.yaml
+  /api/{version}/objects/documents/batch/actions/fileextract:
+    $ref:
+      ./paths/api_version_objects_documents_batch_actions_fileextract_29789e.yaml
+  /api/{version}/objects/documents/versions/batch/actions/fileextract:
+    $ref:
+      ./paths/api_version_objects_documents_versions_batch_actions_fileextract_aada36.yaml
+  /api/{version}/objects/documents/batch/actions/fileextract/{job_id}/results:
+    $ref:
+      ./paths/api_version_objects_documents_batch_actions_fileextract_job_id_results_fbd755.yaml
+  /api/{version}/metadata/objects/documents/events:
+    $ref: ./paths/api_version_metadata_objects_documents_events_aff102.yaml
+  /api/{version}/metadata/objects/documents/events/{event_type}/types/{event_subtype}:
+    $ref:
+      ./paths/api_version_metadata_objects_documents_events_event_type_types_event_subtype_dc03e3.yaml
+  /api/{version}/objects/documents/{doc_id}/versions/{major_version}/{minor_version}/events:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_versions_major_version_minor_version_events_a7de76.yaml
+  /api/{version}/objects/documents/{doc_id}/events:
+    $ref: ./paths/api_version_objects_documents_doc_id_events_697a2f.yaml
+  /api/{version}/metadata/objects/documents/templates:
+    $ref: ./paths/api_version_metadata_objects_documents_templates_97850f.yaml
+  /api/{version}/objects/documents/templates:
+    $ref: ./paths/api_version_objects_documents_templates_4e1172.yaml
+  /api/{version}/objects/documents/templates/{template_name}:
+    $ref:
+      ./paths/api_version_objects_documents_templates_template_name_0e8ef6.yaml
+  /api/{version}/objects/documents/templates/{template_name}/file:
+    $ref:
+      ./paths/api_version_objects_documents_templates_template_name_file_804d7e.yaml
+  /api/{version}/metadata/query/documents/relationships/document_signature__sysr:
+    $ref:
+      ./paths/api_version_metadata_query_documents_relationships_document_signature_sysr_4ad2e3.yaml
+  /api/{version}/metadata/query/archived_documents/relationships/document_signature__sysr:
+    $ref:
+      ./paths/api_version_metadata_query_archived_documents_relationships_document_signature_sysr_a42a6d.yaml
+  /api/{version}/objects/documents/tokens:
+    $ref: ./paths/api_version_objects_documents_tokens_9399a2.yaml
+  /api/{version}/objects/binders/{binder_id}:
+    $ref: ./paths/api_version_objects_binders_binder_id_821b40.yaml
+  /api/{version}/objects/binders/{binder_id}/versions:
+    $ref: ./paths/api_version_objects_binders_binder_id_versions_4c0f14.yaml
+  /api/{version}/objects/binders/{binder_id}/versions/{major_version}/{minor_version}:
+    $ref:
+      ./paths/api_version_objects_binders_binder_id_versions_major_version_minor_version_efa24a.yaml
+  /api/{version}/objects/binders:
+    $ref: ./paths/api_version_objects_binders_571164.yaml
+  /api/{version}/objects/binders/{binder_id}/actions:
+    $ref: ./paths/api_version_objects_binders_binder_id_actions_6f7702.yaml
+  /api/{version}/objects/binders/{binder_id}/actions/export:
+    $ref:
+      ./paths/api_version_objects_binders_binder_id_actions_export_2756cf.yaml
+  /api/{version}/objects/binders/{binder_id}/versions/{major_version}/{minor_version}/actions/export:
+    $ref:
+      ./paths/api_version_objects_binders_binder_id_versions_major_version_minor_version_actions_export_76b389.yaml
+  /api/{version}/objects/binders/actions/export/{job_id}/results:
+    $ref:
+      ./paths/api_version_objects_binders_actions_export_job_id_results_f97dc5.yaml
+  /api/{version}/objects/binders/{binder_id}/versions/{major_version}/{minor_version}/relationships/{relationship_id}:
+    $ref:
+      ./paths/api_version_objects_binders_binder_id_versions_major_version_minor_version_relationships_relationship_id_db3691.yaml
+  /api/{version}/objects/binders/{binder_id}/versions/{major_version}/{minor_version}/relationships:
+    $ref:
+      ./paths/api_version_objects_binders_binder_id_versions_major_version_minor_version_relationships_321fa7.yaml
+  /api/{version}/objects/binders/{binder_id}/sections/{section_id}:
+    $ref:
+      ./paths/api_version_objects_binders_binder_id_sections_section_id_ff20ab.yaml
+  /api/{version}/objects/binders/{binder_id}/versions/{major_version}/{minor_version}/sections/{section_id}:
+    $ref:
+      ./paths/api_version_objects_binders_binder_id_versions_major_version_minor_version_sections_section_id_8f5197.yaml
+  /api/{version}/objects/binders/{binder_id}/sections:
+    $ref: ./paths/api_version_objects_binders_binder_id_sections_30a2bb.yaml
+  /api/{version}/objects/binders/{binder_id}/documents:
+    $ref: ./paths/api_version_objects_binders_binder_id_documents_c1b4c3.yaml
+  /api/{version}/objects/binders/{binder_id}/documents/{section_id}:
+    $ref:
+      ./paths/api_version_objects_binders_binder_id_documents_section_id_6fed34.yaml
+  /api/{version}/metadata/objects/binders/templates:
+    $ref: ./paths/api_version_metadata_objects_binders_templates_7640ec.yaml
+  /api/{version}/metadata/objects/binders/templates/bindernodes:
+    $ref:
+      ./paths/api_version_metadata_objects_binders_templates_bindernodes_4d65e4.yaml
+  /api/{version}/objects/binders/templates:
+    $ref: ./paths/api_version_objects_binders_templates_d90b7f.yaml
+  /api/{version}/objects/binders/templates/{template_name}:
+    $ref:
+      ./paths/api_version_objects_binders_templates_template_name_dc4ef5.yaml
+  /api/{version}/objects/binders/templates/{template_name}/bindernodes:
+    $ref:
+      ./paths/api_version_objects_binders_templates_template_name_bindernodes_f4cd72.yaml
+  /api/{version}/objects/binders/{binder_id}/binding_rule:
+    $ref: ./paths/api_version_objects_binders_binder_id_binding_rule_21418f.yaml
+  /api/{version}/objects/binders/{binder_id}/sections/{node_id}/binding_rule:
+    $ref:
+      ./paths/api_version_objects_binders_binder_id_sections_node_id_binding_rule_a524d2.yaml
+  /api/{version}/objects/binders/{binder_id}/documents/{node_id}/binding_rule:
+    $ref:
+      ./paths/api_version_objects_binders_binder_id_documents_node_id_binding_rule_7f4f8d.yaml
+  /api/{version}/configuration/Objecttype:
+    $ref: ./paths/api_version_configuration_Objecttype_1a95e9.yaml
+  /api/{version}/vobjects/{object_name}/actions/changetype:
+    $ref:
+      ./paths/api_version_vobjects_object_name_actions_changetype_a66ee5.yaml
+  /api/{version}/vobjects/{object_name}/{id}/roles/{role_name}:
+    $ref:
+      ./paths/api_version_vobjects_object_name_id_roles_role_name_c971cd.yaml
+  /api/{version}/vobjects/{object_name}/roles:
+    $ref: ./paths/api_version_vobjects_object_name_roles_dcee19.yaml
+  /api/{version}/metadata/vobjects/{object_name}:
+    $ref: ./paths/api_version_metadata_vobjects_object_name_2c2edc.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/attachments:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_attachments_449f4e.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/attachments/{attachment_id}:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_attachments_attachment_id_01f194.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/attachments/{attachment_id}/versions:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_attachments_attachment_id_versions_ed61ba.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/attachments/{attachment_id}/versions/{attachment_version}:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_attachments_attachment_id_versions_attachment_version_9582b3.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/attachments/{attachment_id}/versions/{attachment_version}/file:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_attachments_attachment_id_versions_attachment_version_file_77232c.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/attachments/file:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_attachments_file_d06790.yaml
+  /api/{version}/vobjects/{object_name}/attachments/batch:
+    $ref: ./paths/api_version_vobjects_object_name_attachments_batch_3a027c.yaml
+  /api/{version}/metadata/vobjects/{object_name}/page_layouts:
+    $ref:
+      ./paths/api_version_metadata_vobjects_object_name_page_layouts_300b60.yaml
+  /api/{version}/metadata/vobjects/{object_name}/page_layouts/{layout_name}:
+    $ref:
+      ./paths/api_version_metadata_vobjects_object_name_page_layouts_layout_name_8d3254.yaml
+  /api/{version}/vobjects/{object_name}/actions/merge:
+    $ref: ./paths/api_version_vobjects_object_name_actions_merge_e47ceb.yaml
+  /api/{version}/vobjects/merges/{job_id}/status:
+    $ref: ./paths/api_version_vobjects_merges_job_id_status_6d23a4.yaml
+  /api/{version}/vobjects/merges/{job_id}/results:
+    $ref: ./paths/api_version_vobjects_merges_job_id_results_1b893e.yaml
+  /api/{version}/vobjects/merges/{job_id}/log:
+    $ref: ./paths/api_version_vobjects_merges_job_id_log_b272d7.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/attachment_fields/{attachment_field_name}/file:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_attachment_fields_attachment_field_name_file_f0da03.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/attachment_fields/file:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_attachment_fields_file_f343a6.yaml
+  /api/{version}/vobjects/{object_name}/actions/recalculaterollups:
+    $ref:
+      ./paths/api_version_vobjects_object_name_actions_recalculaterollups_20d7ae.yaml
+  /api/{version}/metadata/vobjects/{object_name}/fields/{object_field_name}:
+    $ref:
+      ./paths/api_version_metadata_vobjects_object_name_fields_object_field_name_eb14ee.yaml
+  /api/{version}/metadata/vobjects:
+    $ref: ./paths/api_version_metadata_vobjects_b75ad2.yaml
+  /api/{version}/vobjects/{object_name}:
+    $ref: ./paths/api_version_vobjects_object_name_83c9bc.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}:
+    $ref: ./paths/api_version_vobjects_object_name_object_record_id_dcbb98.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/actions/cascadedelete:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_actions_cascadedelete_884d3b.yaml
+  /api/{version}/vobjects/cascadedelete/results/{object_name}/{job_status}/{job_id}:
+    $ref:
+      ./paths/api_version_vobjects_cascadedelete_results_object_name_job_status_job_id_3a0e5a.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/actions/deepcopy:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_actions_deepcopy_50e34e.yaml
+  /api/{version}/vobjects/deepcopy/results/{object_name}/{job_status}/{job_id}:
+    $ref:
+      ./paths/api_version_vobjects_deepcopy_results_object_name_job_status_job_id_c11159.yaml
+  /api/{version}/objects/deletions/vobjects/{object_name}:
+    $ref: ./paths/api_version_objects_deletions_vobjects_object_name_407459.yaml
+  /api/{version}/limits:
+    $ref: ./paths/api_version_limits_6b48ae.yaml
+  /api/{version}/vobjects/{object_name}/actions/updatecorporatecurrency:
+    $ref:
+      ./paths/api_version_vobjects_object_name_actions_updatecorporatecurrency_f80645.yaml
+  /api/{version}/objects/documents/{id}/roles:
+    $ref: ./paths/api_version_objects_documents_id_roles_0f27f1.yaml
+  /api/{version}/objects/documents/{id}/roles/{role_name}:
+    $ref: ./paths/api_version_objects_documents_id_roles_role_name_8dee02.yaml
+  /api/{version}/objects/documents/roles/batch:
+    $ref: ./paths/api_version_objects_documents_roles_batch_755f51.yaml
+  /api/{version}/objects/documents/{doc_id}/roles/{role_name_and_user_or_group}/{id}:
+    $ref:
+      ./paths/api_version_objects_documents_doc_id_roles_role_name_and_user_or_group_id_e8fd01.yaml
+  /api/{version}/objects/binders/{id}/roles:
+    $ref: ./paths/api_version_objects_binders_id_roles_50de95.yaml
+  /api/{version}/objects/binders/{id}/roles/{role_name}:
+    $ref: ./paths/api_version_objects_binders_id_roles_role_name_1b67ad.yaml
+  /api/{version}/objects/binders/{binder_id}/roles/{role_name_and_user_or_group}/{id}:
+    $ref:
+      ./paths/api_version_objects_binders_binder_id_roles_role_name_and_user_or_group_id_bfe40f.yaml
+  /api/{version}/objects/objectworkflows/tasks:
+    $ref: ./paths/api_version_objects_objectworkflows_tasks_3b832e.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}:
+    $ref: ./paths/api_version_objects_objectworkflows_tasks_task_id_8f4f52.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_3c1fff.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions/{task_action}:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_task_action_c55bcd.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions/mdwaccept:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_mdwaccept_e65328.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions/accept:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_accept_0ad778.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions/undoaccept:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_undoaccept_90d1aa.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions/mdwcomplete:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_mdwcomplete_bed47d.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions/complete:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_complete_445d5e.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions/mdwreassign:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_mdwreassign_7e53e6.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions/reassign:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_reassign_b90f79.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions/updateduedate:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_updateduedate_a3db12.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions/cancel:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_cancel_16bfdc.yaml
+  /api/{version}/objects/objectworkflows/tasks/{task_id}/actions/mdwmanagecontent:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_tasks_task_id_actions_mdwmanagecontent_baa92d.yaml
+  /api/{version}/object/workflow/actions:
+    $ref: ./paths/api_version_object_workflow_actions_111896.yaml
+  /api/{version}/object/workflow/actions/{action}:
+    $ref: ./paths/api_version_object_workflow_actions_action_cc86ae.yaml
+  /api/{version}/object/workflow/actions/cancelworkflows:
+    $ref:
+      ./paths/api_version_object_workflow_actions_cancelworkflows_6366c3.yaml
+  /api/{version}/object/workflow/actions/canceltasks:
+    $ref: ./paths/api_version_object_workflow_actions_canceltasks_08c1be.yaml
+  /api/{version}/object/workflow/actions/reassigntasks:
+    $ref: ./paths/api_version_object_workflow_actions_reassigntasks_dcaae4.yaml
+  /api/{version}/object/workflow/actions/replaceworkflowowner:
+    $ref:
+      ./paths/api_version_object_workflow_actions_replaceworkflowowner_11f6b4.yaml
+  /api/{version}/objects/objectworkflows:
+    $ref: ./paths/api_version_objects_objectworkflows_4e1975.yaml
+  /api/{version}/objects/objectworkflows/{workflow_id}:
+    $ref: ./paths/api_version_objects_objectworkflows_workflow_id_67cab0.yaml
+  /api/{version}/objects/objectworkflows/{workflow_id}/actions:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_workflow_id_actions_ba88d8.yaml
+  /api/{version}/objects/objectworkflows/{workflow_id}/actions/{workflow_action}:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_workflow_id_actions_workflow_action_844910.yaml
+  /api/{version}/objects/documents/{id}/versions/{major_version}/{minor_version}/lifecycle_actions:
+    $ref:
+      ./paths/api_version_objects_documents_id_versions_major_version_minor_version_lifecycle_actions_757eca.yaml
+  /api/{version}/objects/documents/lifecycle_actions:
+    $ref: ./paths/api_version_objects_documents_lifecycle_actions_337088.yaml
+  ? /api/{version}/objects/documents/{id}/versions/{major_version}/{minor_version}/lifecycle_actions/{name__v}/entry_requirements
+  : $ref:
+      ./paths/api_version_objects_documents_id_versions_major_version_minor_version_lifecycle_actions_name_v_entry_requirements_bf12fc.yaml
+  /api/{version}/objects/documents/{id}/versions/{major_version}/{minor_version}/lifecycle_actions/{name__v}:
+    $ref:
+      ./paths/api_version_objects_documents_id_versions_major_version_minor_version_lifecycle_actions_name_v_7c8643.yaml
+  /api/{version}/objects/documents/actions/{lifecycle_and_state_and_action}/{job_id}/results:
+    $ref:
+      ./paths/api_version_objects_documents_actions_lifecycle_and_state_and_action_job_id_results_66af58.yaml
+  /api/{version}/objects/documents/lifecycle_actions/{user_action_name}:
+    $ref:
+      ./paths/api_version_objects_documents_lifecycle_actions_user_action_name_6ed6b9.yaml
+  /api/{version}/objects/binders/{id}/versions/{major_version}/{minor_version}/lifecycle_actions:
+    $ref:
+      ./paths/api_version_objects_binders_id_versions_major_version_minor_version_lifecycle_actions_35578d.yaml
+  /api/{version}/objects/binders/lifecycle_actions:
+    $ref: ./paths/api_version_objects_binders_lifecycle_actions_84fe14.yaml
+  ? /api/{version}/objects/binders/{id}/versions/{major_version}/{minor_version}/lifecycle_actions/{name__v}/entry_requirements
+  : $ref:
+      ./paths/api_version_objects_binders_id_versions_major_version_minor_version_lifecycle_actions_name_v_entry_requirements_a6d57f.yaml
+  /api/{version}/objects/binders/{id}/versions/{major_version}/{minor_version}/lifecycle_actions/{name__v}:
+    $ref:
+      ./paths/api_version_objects_binders_id_versions_major_version_minor_version_lifecycle_actions_name_v_517cf0.yaml
+  /api/{version}/objects/binders/lifecycle_actions/{user_action_name}:
+    $ref:
+      ./paths/api_version_objects_binders_lifecycle_actions_user_action_name_cba6b6.yaml
+  /api/{version}/configuration/role_assignment_rule:
+    $ref: ./paths/api_version_configuration_role_assignment_rule_5f8165.yaml
+  /api/{version}/objects/documents/actions:
+    $ref: ./paths/api_version_objects_documents_actions_3d70d4.yaml
+  /api/{version}/objects/documents/actions/{workflow_name}:
+    $ref:
+      ./paths/api_version_objects_documents_actions_workflow_name_f9a42b.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/actions:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_actions_d6a46e.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/actions/{action_name}:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_actions_action_name_622a24.yaml
+  /api/{version}/vobjects/{object_name}/actions/{action_name}:
+    $ref:
+      ./paths/api_version_vobjects_object_name_actions_action_name_0e566b.yaml
+  /api/{version}/objects/objectworkflows/actions:
+    $ref: ./paths/api_version_objects_objectworkflows_actions_ddb2b6.yaml
+  /api/{version}/objects/objectworkflows/actions/{workflow_name}:
+    $ref:
+      ./paths/api_version_objects_objectworkflows_actions_workflow_name_41dad2.yaml
+  /api/{version}/objects/users:
+    $ref: ./paths/api_version_objects_users_0ab40c.yaml
+  /api/{version}/objects/users/{id}:
+    $ref: ./paths/api_version_objects_users_id_a34c63.yaml
+  /api/{version}/metadata/objects/users:
+    $ref: ./paths/api_version_metadata_objects_users_cfb1ed.yaml
+  /api/{version}/objects/users/me/password:
+    $ref: ./paths/api_version_objects_users_me_password_b15d5a.yaml
+  /api/{version}/objects/users/{user_id}/vault_membership/{vault_id}:
+    $ref:
+      ./paths/api_version_objects_users_user_id_vault_membership_vault_id_0877df.yaml
+  /api/{version}/objects/licenses:
+    $ref: ./paths/api_version_objects_licenses_61af0c.yaml
+  /api/{version}/objects/users/{id}/permissions:
+    $ref: ./paths/api_version_objects_users_id_permissions_c3c56b.yaml
+  /api/{version}/objects/users/me/permissions:
+    $ref: ./paths/api_version_objects_users_me_permissions_3ecc99.yaml
+  /api/{version}/scim/v2/ServiceProviderConfig:
+    $ref: ./paths/api_version_scim_v2_ServiceProviderConfig_911a68.yaml
+  /api/{version}/scim/v2/Schemas:
+    $ref: ./paths/api_version_scim_v2_Schemas_3c5809.yaml
+  /api/{version}/scim/v2/Schemas/{id}:
+    $ref: ./paths/api_version_scim_v2_Schemas_id_c86f6d.yaml
+  /api/{version}/scim/v2/ResourceTypes:
+    $ref: ./paths/api_version_scim_v2_ResourceTypes_6ba003.yaml
+  /api/{version}/scim/v2/ResourceTypes/{type}:
+    $ref: ./paths/api_version_scim_v2_ResourceTypes_type_a8999e.yaml
+  /api/{version}/scim/v2/Users:
+    $ref: ./paths/api_version_scim_v2_Users_f2637d.yaml
+  /api/{version}/scim/v2/Users/{id}:
+    $ref: ./paths/api_version_scim_v2_Users_id_7fbb85.yaml
+  /api/{version}/scim/v2/Me:
+    $ref: ./paths/api_version_scim_v2_Me_d93eef.yaml
+  /api/{version}/scim/v2/{type}:
+    $ref: ./paths/api_version_scim_v2_type_f3fb3f.yaml
+  /api/{version}/scim/v2/{type}/{id}:
+    $ref: ./paths/api_version_scim_v2_type_id_19c2a6.yaml
+  /api/{version}/metadata/objects/groups:
+    $ref: ./paths/api_version_metadata_objects_groups_e41bae.yaml
+  /api/{version}/objects/groups:
+    $ref: ./paths/api_version_objects_groups_a305e7.yaml
+  /api/{version}/objects/groups/auto:
+    $ref: ./paths/api_version_objects_groups_auto_d5ac1b.yaml
+  /api/{version}/objects/groups/{group_id}:
+    $ref: ./paths/api_version_objects_groups_group_id_8f9c64.yaml
+  /api/{version}/objects/picklists:
+    $ref: ./paths/api_version_objects_picklists_4eb3b6.yaml
+  /api/{version}/objects/picklists/{picklist_name}:
+    $ref: ./paths/api_version_objects_picklists_picklist_name_da4d3b.yaml
+  /api/{version}/objects/picklists/{picklist_name}/{picklist_value_name}:
+    $ref:
+      ./paths/api_version_objects_picklists_picklist_name_picklist_value_name_0d587c.yaml
+  /api/{version}/vobjects/edl_item__v/actions/createplaceholder:
+    $ref:
+      ./paths/api_version_vobjects_edl_item_v_actions_createplaceholder_8b267e.yaml
+  /api/{version}/composites/trees/{edl_hierarchy_or_template}:
+    $ref:
+      ./paths/api_version_composites_trees_edl_hierarchy_or_template_50dda9.yaml
+  /api/{version}/composites/trees/{edl_hierarchy_or_template}/actions/listnodes:
+    $ref:
+      ./paths/api_version_composites_trees_edl_hierarchy_or_template_actions_listnodes_ad301c.yaml
+  /api/{version}/composites/trees/edl_hierarchy__v/{parent_node_id}/children:
+    $ref:
+      ./paths/api_version_composites_trees_edl_hierarchy_v_parent_node_id_children_f2f79b.yaml
+  /api/{version}/objects/edl_matched_documents/batch/actions/add:
+    $ref:
+      ./paths/api_version_objects_edl_matched_documents_batch_actions_add_393b7d.yaml
+  /api/{version}/objects/edl_matched_documents/batch/actions/remove:
+    $ref:
+      ./paths/api_version_objects_edl_matched_documents_batch_actions_remove_8569cb.yaml
+  /api/{version}/metadata/objects/securitypolicies:
+    $ref: ./paths/api_version_metadata_objects_securitypolicies_402984.yaml
+  /api/{version}/objects/securitypolicies:
+    $ref: ./paths/api_version_objects_securitypolicies_86fdf4.yaml
+  /api/{version}/objects/securitypolicies/{security_policy_name}:
+    $ref:
+      ./paths/api_version_objects_securitypolicies_security_policy_name_5ffca5.yaml
+  /api/{version}/objects/domain:
+    $ref: ./paths/api_version_objects_domain_a4ab97.yaml
+  /api/{version}/objects/domains:
+    $ref: ./paths/api_version_objects_domains_0deb6f.yaml
+  /api/{version}/services/package:
+    $ref: ./paths/api_version_services_package_fdc1f6.yaml
+  /api/{version}/vobject/vault_package__v/{package_id}/actions/deploy:
+    $ref:
+      ./paths/api_version_vobject_vault_package_v_package_id_actions_deploy_fbfc3a.yaml
+  /api/{version}/vobject/vault_package__v/{package_id}/actions/deploy/results:
+    $ref:
+      ./paths/api_version_vobject_vault_package_v_package_id_actions_deploy_results_bf1da6.yaml
+  /api/{version}/vobjects/outbound_package__v/{package_id}/dependencies:
+    $ref:
+      ./paths/api_version_vobjects_outbound_package_v_package_id_dependencies_bafce2.yaml
+  /api/{version}/query/components:
+    $ref: ./paths/api_version_query_components_3c10e4.yaml
+  /api/{version}/objects/vault/actions/compare:
+    $ref: ./paths/api_version_objects_vault_actions_compare_ca182b.yaml
+  /api/{version}/objects/vault/actions/configreport:
+    $ref: ./paths/api_version_objects_vault_actions_configreport_cf5ae9.yaml
+  /api/{version}/services/package/actions/validate:
+    $ref: ./paths/api_version_services_package_actions_validate_259210.yaml
+  /api/{version}/services/configuration_mode/actions/enable:
+    $ref:
+      ./paths/api_version_services_configuration_mode_actions_enable_cf5e34.yaml
+  /api/{version}/services/configuration_mode/actions/disable:
+    $ref:
+      ./paths/api_version_services_configuration_mode_actions_disable_e7cd0a.yaml
+  /api/{version}/objects/sandbox/actions/buildproduction:
+    $ref:
+      ./paths/api_version_objects_sandbox_actions_buildproduction_7a7207.yaml
+  /api/{version}/objects/sandbox/actions/promoteproduction:
+    $ref:
+      ./paths/api_version_objects_sandbox_actions_promoteproduction_710176.yaml
+  /api/{version}/objects/sandbox/snapshot:
+    $ref: ./paths/api_version_objects_sandbox_snapshot_8c959c.yaml
+  /api/{version}/objects/sandbox/snapshot/{api_name}:
+    $ref: ./paths/api_version_objects_sandbox_snapshot_api_name_0f3138.yaml
+  /api/{version}/objects/sandbox/snapshot/{api_name}/actions/update:
+    $ref:
+      ./paths/api_version_objects_sandbox_snapshot_api_name_actions_update_fb9712.yaml
+  /api/{version}/objects/sandbox/snapshot/{api_name}/actions/upgrade:
+    $ref:
+      ./paths/api_version_objects_sandbox_snapshot_api_name_actions_upgrade_757832.yaml
+  /api/{version}/objects/sandbox:
+    $ref: ./paths/api_version_objects_sandbox_2af1f8.yaml
+  /api/{version}/objects/sandbox/{vault_id}:
+    $ref: ./paths/api_version_objects_sandbox_vault_id_f6ce0f.yaml
+  /api/{version}/objects/sandbox/actions/recheckusage:
+    $ref: ./paths/api_version_objects_sandbox_actions_recheckusage_341099.yaml
+  /api/{version}/objects/sandbox/batch/changesize:
+    $ref: ./paths/api_version_objects_sandbox_batch_changesize_935aaa.yaml
+  /api/{version}/objects/sandbox/entitlements/set:
+    $ref: ./paths/api_version_objects_sandbox_entitlements_set_b031cc.yaml
+  /api/{version}/objects/sandbox/{vault_id}/actions/refresh:
+    $ref:
+      ./paths/api_version_objects_sandbox_vault_id_actions_refresh_ea6d52.yaml
+  /api/{version}/metadata/audittrail:
+    $ref: ./paths/api_version_metadata_audittrail_1a9ddd.yaml
+  /api/{version}/metadata/audittrail/{audit_trail_type}:
+    $ref: ./paths/api_version_metadata_audittrail_audit_trail_type_47fac6.yaml
+  /api/{version}/audittrail/{audit_trail_type}:
+    $ref: ./paths/api_version_audittrail_audit_trail_type_e5068c.yaml
+  /api/{version}/objects/documents/{doc_id}/audittrail:
+    $ref: ./paths/api_version_objects_documents_doc_id_audittrail_d512f1.yaml
+  /api/{version}/vobjects/{object_name}/{object_record_id}/audittrail:
+    $ref:
+      ./paths/api_version_vobjects_object_name_object_record_id_audittrail_cc1819.yaml
+  /api/{version}/logs/code/debug:
+    $ref: ./paths/api_version_logs_code_debug_25729f.yaml
+  /api/{version}/logs/code/debug/{id}:
+    $ref: ./paths/api_version_logs_code_debug_id_a00dc0.yaml
+  /api/{version}/logs/code/debug/{id}/files:
+    $ref: ./paths/api_version_logs_code_debug_id_files_6ce9f9.yaml
+  /api/{version}/logs/code/debug/{id}/actions/reset:
+    $ref: ./paths/api_version_logs_code_debug_id_actions_reset_afc9a1.yaml
+  /api/{version}/code/profiler:
+    $ref: ./paths/api_version_code_profiler_5ac956.yaml
+  /api/{version}/code/profiler/{session_name}:
+    $ref: ./paths/api_version_code_profiler_session_name_dfc6a3.yaml
+  /api/{version}/code/profiler/{session_name}/actions/end:
+    $ref: ./paths/api_version_code_profiler_session_name_actions_end_c9f03d.yaml
+  /api/{version}/code/profiler/{session_name}/results:
+    $ref: ./paths/api_version_code_profiler_session_name_results_d893ac.yaml
+  /api/{version}/notifications/histories:
+    $ref: ./paths/api_version_notifications_histories_164db3.yaml
+  /api/{version}/logs/api_usage:
+    $ref: ./paths/api_version_logs_api_usage_9210ce.yaml
+  /api/{version}/logs/code/runtime:
+    $ref: ./paths/api_version_logs_code_runtime_077378.yaml
+  /api/{version}/services/file_staging/upload:
+    $ref: ./paths/api_version_services_file_staging_upload_b1202a.yaml
+  /api/{version}/services/file_staging/upload/{upload_session_id}:
+    $ref:
+      ./paths/api_version_services_file_staging_upload_upload_session_id_3672ad.yaml
+  /api/{version}/services/file_staging/upload/{upload_session_id}/parts:
+    $ref:
+      ./paths/api_version_services_file_staging_upload_upload_session_id_parts_2758dd.yaml
+  /api/{version}/services/file_staging/items/{item}:
+    $ref: ./paths/api_version_services_file_staging_items_item_aead79.yaml
+  /api/{version}/services/file_staging/items/content/{item}:
+    $ref:
+      ./paths/api_version_services_file_staging_items_content_item_c61928.yaml
+  /api/{version}/services/file_staging/items:
+    $ref: ./paths/api_version_services_file_staging_items_bcc163.yaml
+  /api/{version}/services/loader/extract:
+    $ref: ./paths/api_version_services_loader_extract_0d0fc6.yaml
+  /api/{version}/services/loader/{job_id}/tasks/{task_id}/results:
+    $ref:
+      ./paths/api_version_services_loader_job_id_tasks_task_id_results_737c26.yaml
+  /api/{version}/services/loader/{job_id}/tasks/{task_id}/results/renditions:
+    $ref:
+      ./paths/api_version_services_loader_job_id_tasks_task_id_results_renditions_94c130.yaml
+  /api/{version}/services/loader/load:
+    $ref: ./paths/api_version_services_loader_load_843bd2.yaml
+  /api/{version}/services/loader/{job_id}/tasks/{task_id}/successlog:
+    $ref:
+      ./paths/api_version_services_loader_job_id_tasks_task_id_successlog_2996a2.yaml
+  /api/{version}/services/loader/{job_id}/tasks/{task_id}/failurelog:
+    $ref:
+      ./paths/api_version_services_loader_job_id_tasks_task_id_failurelog_009aec.yaml
+  /api/{version}/messages/{message_type}/language/{lang}/actions/export:
+    $ref:
+      ./paths/api_version_messages_message_type_language_lang_actions_export_49198d.yaml
+  /api/{version}/messages/{message_type}/actions/import:
+    $ref: ./paths/api_version_messages_message_type_actions_import_181a8d.yaml
+  /api/{version}/services/jobs/{job_id}/summary:
+    $ref: ./paths/api_version_services_jobs_job_id_summary_be16ea.yaml
+  /api/{version}/services/jobs/{job_id}/errors:
+    $ref: ./paths/api_version_services_jobs_job_id_errors_12eaa2.yaml
+  /api/{version}/services/jobs/{job_id}:
+    $ref: ./paths/api_version_services_jobs_job_id_6872c4.yaml
+  /api/{version}/services/jobs/{job_id}/tasks:
+    $ref: ./paths/api_version_services_jobs_job_id_tasks_7f59ab.yaml
+  /api/{version}/services/jobs/histories:
+    $ref: ./paths/api_version_services_jobs_histories_b64354.yaml
+  /api/{version}/services/jobs/monitors:
+    $ref: ./paths/api_version_services_jobs_monitors_402d50.yaml
+  /api/{version}/services/jobs/start_now/{job_id}:
+    $ref: ./paths/api_version_services_jobs_start_now_job_id_0f6104.yaml
+  /api/{version}/services/queues:
+    $ref: ./paths/api_version_services_queues_9d4e28.yaml
+  /api/{version}/services/queues/{queue_name}:
+    $ref: ./paths/api_version_services_queues_queue_name_d2b037.yaml
+  /api/{version}/services/queues/{queue_name}/actions/disable_delivery:
+    $ref:
+      ./paths/api_version_services_queues_queue_name_actions_disable_delivery_5c8dbe.yaml
+  /api/{version}/services/queues/{queue_name}/actions/enable_delivery:
+    $ref:
+      ./paths/api_version_services_queues_queue_name_actions_enable_delivery_be7d5e.yaml
+  /api/{version}/services/queues/{queue_name}/actions/reset:
+    $ref:
+      ./paths/api_version_services_queues_queue_name_actions_reset_e9d3e6.yaml
+  /api/{version}/code/{class_name}:
+    $ref: ./paths/api_version_code_class_name_93a8a4.yaml
+  /api/{version}/code/{class_name}/enable:
+    $ref: ./paths/api_version_code_class_name_enable_0ca459.yaml
+  /api/{version}/code/{class_name}/disable:
+    $ref: ./paths/api_version_code_class_name_disable_850c37.yaml
+  /api/{version}/code:
+    $ref: ./paths/api_version_code_49ebe3.yaml
+  /api/{version}/services/vobject/vault_package__v/{package_id}/actions/validate:
+    $ref:
+      ./paths/api_version_services_vobject_vault_package_v_package_id_actions_validate_cb4e04.yaml
+  /api/{version}/services/certificate/{cert_id}:
+    $ref: ./paths/api_version_services_certificate_cert_id_fcf2ca.yaml
+  /api/{version}/uicode/distributions:
+    $ref: ./paths/api_version_uicode_distributions_efac24.yaml
+  /api/{version}/uicode/distributions/{distribution_name}:
+    $ref: ./paths/api_version_uicode_distributions_distribution_name_bc2698.yaml
+  /api/{version}/uicode/distributions/{distribution_name}/code:
+    $ref:
+      ./paths/api_version_uicode_distributions_distribution_name_code_c6ccdf.yaml
+tags:
+- name: Default
+  description: Default category

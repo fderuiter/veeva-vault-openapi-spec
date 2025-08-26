@@ -1,0 +1,202 @@
+parameters:
+- name: 'doc_id'
+  in: path
+  required: true
+  description: The document id field value.
+  schema:
+    type: string
+- name: 'attachment_id'
+  in: path
+  required: true
+  description: The attachment id field value.
+  schema:
+    type: string
+- name: 'attachment_version'
+  in: path
+  required: true
+  description: The attachment version__v field value.
+  schema:
+    type: string
+get:
+  summary: Retrieve Document Attachment Version Metadata
+  parameters:
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: doc_id
+    in: path
+    required: true
+    description: The doc_id parameter.
+    schema:
+      type: string
+  - name: attachment_id
+    in: path
+    required: true
+    description: The attachment_id parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: attachment_version
+    in: path
+    required: true
+    description: The attachment_version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_documents_doc_id_attachments_attachment_id_versions_attachment_version_e989cc_get
+  tags:
+  - Default
+delete:
+  summary: Delete Single Document Attachment Version
+  parameters:
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: doc_id
+    in: path
+    required: true
+    description: The doc_id parameter.
+    schema:
+      type: string
+  - name: attachment_id
+    in: path
+    required: true
+    description: The attachment_id parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: attachment_version
+    in: path
+    required: true
+    description: The attachment_version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_documents_doc_id_attachments_attachment_id_versions_attachment_version_e989cc_delete
+  tags:
+  - Default
+post:
+  summary: Restore Document Attachment Version
+  parameters:
+  - name: restore
+    in: query
+    required: false
+    description: 'The parameter restore must be set to true.
+
+      '
+    example: true
+    schema:
+      type: boolean
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: doc_id
+    in: path
+    required: true
+    description: The doc_id parameter.
+    schema:
+      type: string
+  - name: attachment_id
+    in: path
+    required: true
+    description: The attachment_id parameter.
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  - name: attachment_version
+    in: path
+    required: true
+    description: The attachment_version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_objects_documents_doc_id_attachments_attachment_id_versions_attachment_version_e989cc_post
+  tags:
+  - Default

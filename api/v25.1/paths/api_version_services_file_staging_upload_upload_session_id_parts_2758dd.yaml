@@ -1,0 +1,53 @@
+parameters:
+- name: upload_session_id
+  in: path
+  required: true
+  schema:
+    type: string
+get:
+  summary: List File Parts Uploaded to Session
+  parameters:
+  - name: limit
+    in: query
+    required: false
+    description: 'Optional: The maximum number of items per page in the response.
+      This can be any value between 1 and 1000. If omitted, the default value is 1000.'
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId:
+    api_version_services_file_staging_upload_upload_session_id_parts_2758dd_get
+  tags:
+  - Default

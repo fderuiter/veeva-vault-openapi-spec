@@ -1,0 +1,140 @@
+parameters: []
+get:
+  summary: Retrieve All Documents
+  parameters:
+  - name: named_filter
+    in: query
+    required: false
+    description: Retrieves only documents which you have created.
+    example: My Documents
+    schema:
+      type: string
+  - name: scope
+    in: query
+    required: false
+    description: Searches only within the document content.
+    example: contents
+    schema:
+      type: string
+  - name: versionscope
+    in: query
+    required: false
+    description: Retrieves all document versions, rather than only the latest
+      version.
+    example: all
+    schema:
+      type: string
+  - name: search
+    in: query
+    required: false
+    description: Search for documents based on a {keyword} in searchable
+      document fields.
+    example: '{keyword}'
+    schema:
+      type: string
+  - name: limit
+    in: query
+    required: false
+    description: See VQL documentation for more information.
+    schema:
+      type: string
+  - name: sort
+    in: query
+    required: false
+    description: See VQL documentation for more information.
+    schema:
+      type: string
+  - name: start
+    in: query
+    required: false
+    description: See VQL documentation for more information.
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_objects_documents_6d1e77_get
+  tags:
+  - Default
+post:
+  summary: Create Single Document
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-MigrationMode
+    in: header
+    required: false
+    description: When set to true,  you can use the status__v field to create
+      documents in any lifecycle state. Additionally, you can manually set the
+      name, document number, and version number. Vault also bypasses entry
+      criteria, entry actions, and event actions. You must have the Document
+      Migration permission to use this header. Learn more about <a
+      href="https://platform.veevavault.help/en/gr/54028">Document Migration
+      Mode in Vault Help.</a>
+    example: true
+    schema:
+      type: boolean
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_objects_documents_6d1e77_post
+  tags:
+  - Default

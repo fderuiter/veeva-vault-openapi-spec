@@ -1,0 +1,51 @@
+parameters:
+- name: 'component_type_and_record_name'
+  in: path
+  required: true
+  description: The component type name (`Picklist`, `Docfield`, `Doctype`, etc.)
+    followed by the name of the record from which to retrieve metadata. The
+    format is `{Componenttype}.{record_name}`. For example, `Picklist.color__c`.
+    Find this with the [Retrieve Component Record
+    Collection](https://developer.veevavault.com/api/24.3#Retrieve_Component_Record_Collection)
+    endpoint.
+  schema:
+    type: string
+get:
+  summary: Retrieve Component Record (MDL)
+  parameters:
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: component_type_and_record_name
+    in: path
+    required: true
+    description: The component_type_and_record_name parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_mdl_components_component_type_and_record_name_91d8d5_get
+  tags:
+  - Default

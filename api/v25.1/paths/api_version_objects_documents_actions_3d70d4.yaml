@@ -1,0 +1,48 @@
+parameters: []
+get:
+  summary: Retrieve All Document Workflows
+  parameters:
+  - name: loc
+    in: query
+    required: false
+    description: When localized (translated) strings are available, retrieve
+      them by setting loc to true.
+    example: true
+    schema:
+      type: boolean
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_objects_documents_actions_3d70d4_get
+  tags:
+  - Default

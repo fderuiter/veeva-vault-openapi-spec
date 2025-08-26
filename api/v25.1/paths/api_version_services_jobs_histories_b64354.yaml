@@ -1,0 +1,81 @@
+parameters: []
+get:
+  summary: Retrieve Job Histories
+  parameters:
+  - name: start_date
+    in: query
+    required: false
+    description: Sets the date to start retrieving completed jobs, in the format
+      YYYY-MM-DDTHH:MM:SSZ. For example, for 7AM on January 15, 2016, use
+      2016-01-15T07:00:00Z. If omitted, defaults to the first completed job.
+    schema:
+      type: string
+  - name: end_date
+    in: query
+    required: false
+    description: Sets the date to end retrieving completed jobs, in the format
+      YYYY-MM-DDTHH:MM:SSZ. For example, for 7AM on January 15, 2016, use
+      2016-01-15T07:00:00Z. If omitted, defaults to the current date and time.
+    schema:
+      type: string
+  - name: status
+    in: query
+    required: false
+    description: Filter to only retrieve jobs in a certain status. Allowed
+      values are success, errors_encountered, failed_to_run, missed_schedule,
+      cancelled. If omitted, retrieves all statuses.
+    schema:
+      type: string
+  - name: limit
+    in: query
+    required: false
+    description: Paginate the results by specifying the maximum number of
+      histories per page in the response. This can be any value between 1 and
+      200. If omitted, defaults to 50.
+    schema:
+      type: string
+  - name: offset
+    in: query
+    required: false
+    description: Paginate the results displayed per page by specifying the
+      amount of offset from the first job history returned. If omitted, defaults
+      to 0. If you are viewing the first 50 results (page 1) and want to see the
+      next page, set this to offset=51.
+    schema:
+      type: string
+  - name: Authorization
+    in: header
+    required: false
+    example: '{{sessionId}}'
+    schema:
+      type: string
+  - name: Accept
+    in: header
+    required: false
+    example: application/json
+    schema:
+      type: string
+  - name: X-VaultAPI-ClientID
+    in: header
+    required: false
+    description: Include a Client ID to identify this request. This ID appears
+      in the API Usage Logs, which is avaiable to download from Admin > Logs >
+      API Usage Logs or through the Vault REST API with the Download Daily API
+      Usage request. If omitted, the value will appear as `unknown` in the API
+      Usage Log.
+    example: '{{clientId}}'
+    schema:
+      type: string
+  - name: version
+    in: path
+    required: true
+    description: The version parameter.
+    schema:
+      type: string
+  responses:
+    '200':
+      description: Success
+  description: No description available.
+  operationId: api_version_services_jobs_histories_b64354_get
+  tags:
+  - Default
