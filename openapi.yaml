@@ -1,0 +1,1978 @@
+openapi: 3.1.0
+info:
+  title: Veeva Vault API
+  version: "25.3"
+  description: |-
+    The Veeva Vault API allows for programmatic access to Vault data and functionality.
+    This specification is based on the official Veeva Vault API documentation for version 25.3.
+servers:
+  - url: https://{your_vault_dns}/api/{version}
+    variables:
+      your_vault_dns:
+        default: myvault.veevavault.com
+        description: The DNS of your Vault instance.
+      version:
+        default: v25.3
+        description: The API version.
+  - url: https://{your_vault_dns}/api
+    variables:
+      your_vault_dns:
+        default: myvault.veevavault.com
+        description: The DNS of your Vault instance.
+  - url: https://login.veevavault.com
+    description: Server for OAuth and discovery endpoints.
+paths:
+  /:
+    get:
+      summary: Retrieve API Versions
+      description: Retrieve all supported versions of Vault API.
+      operationId: retrieveApiVersions
+      tags:
+        - Authentication
+      servers:
+        - url: https://{your_vault_dns}/api
+          variables:
+            your_vault_dns:
+              default: myvault.veevavault.com
+              description: The DNS of your Vault instance.
+      responses:
+        '200':
+          description: Successful retrieval of API versions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responseStatus:
+                    type: string
+                    enum: [SUCCESS]
+                  values:
+                    type: object
+                    additionalProperties:
+                      type: string
+                      format: uri
+        default:
+          description: Failed to retrieve API versions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /auth:
+    post:
+      summary: Authenticate User
+      description: Authenticate with a username and password to obtain a session ID.
+      operationId: authenticateUser
+      tags:
+        - Authentication
+      security: []
+      requestBody:
+        description: User credentials
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Your Vault user name.
+                password:
+                  type: string
+                  format: password
+                  description: Your Vault password.
+                vaultDNS:
+                  type: string
+                  description: Optional DNS of the Vault for which you want to generate a session. Overrides the `vaultDNS` in the URI.
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        default:
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /auth/discovery:
+    post:
+      summary: Discover Authentication Type
+      description: Discover the authentication type of a user.
+      operationId: discoverAuthType
+      tags:
+        - Authentication
+      security: []
+      servers:
+        - url: https://login.veevavault.com
+      parameters:
+        - name: username
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The user's Vault user name.
+        - name: client_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: The user's mapped Authorization Server client_id.
+      responses:
+        '200':
+          description: Successful discovery
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthDiscoveryResponse'
+        default:
+          description: Discovery failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /keep-alive:
+    post:
+      summary: Keep Session Alive
+      description: Given an active sessionId, keep the session active by refreshing the session duration.
+      operationId: keepAlive
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: Session refreshed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        default:
+          description: Failed to keep session alive.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /session:
+    delete:
+      summary: End Session
+      description: Given an active sessionId, inactivate an API session.
+      operationId: endSession
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: Session ended successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        default:
+          description: Failed to end session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /delegation/vaults:
+    get:
+      summary: Retrieve Delegations
+      description: Retrieve Vaults where the currently authenticated user has delegate access.
+      operationId: retrieveDelegations
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: Successful retrieval of delegations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DelegationsResponse'
+        default:
+          description: Failed to retrieve delegations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /delegation/login:
+    post:
+      summary: Initiate Delegated Session
+      description: Generate a delegated session ID.
+      operationId: initiateDelegatedSession
+      tags:
+        - Authentication
+      requestBody:
+        description: Delegated session details
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                vault_id:
+                  type: integer
+                  description: The id of the Vault to initiate the delegated session.
+                delegator_userid:
+                  type: string
+                  description: The ID of the user who granted delegate access.
+              required:
+                - vault_id
+                - delegator_userid
+      responses:
+        '200':
+          description: Delegated session initiated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DelegatedSessionResponse'
+        default:
+          description: Failed to initiate delegated session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /query:
+    post:
+      summary: Query Vault Data
+      description: Retrieve and filter Vault data using a VQL query.
+      operationId: query
+      tags:
+        - VQL
+      parameters:
+        - name: X-VaultAPI-DescribeQuery
+          in: header
+          schema:
+            type: boolean
+          description: Set to true to include static field metadata in the response.
+        - name: X-VaultAPI-RecordProperties
+          in: header
+          schema:
+            type: string
+          description: If present, the response includes the record properties object.
+      requestBody:
+        description: VQL query
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                q:
+                  type: string
+                  description: A VQL query of up to 50,000 characters.
+              required:
+                - q
+      responses:
+        '200':
+          description: Successful query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        default:
+          description: Query failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /vobjects/{object_name}:
+    get:
+      summary: Retrieve Object Records
+      description: Retrieves a collection of records for a specific object.
+      operationId: getObjectRecords
+      tags:
+        - Object Records
+      parameters:
+        - name: object_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the object.
+      responses:
+        '200':
+          description: Successful retrieval of object records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectRecordCollectionResponse'
+        default:
+          description: Failed to retrieve object records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Create Object Records
+      description: Create one or more records for a specific object.
+      operationId: createObjectRecords
+      tags:
+        - Object Records
+      parameters:
+        - name: object_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the object.
+      requestBody:
+        description: A list of object records to create, in either CSV or JSON format.
+        required: true
+        content:
+          text/csv:
+            schema:
+              type: string
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ObjectRecord'
+      responses:
+        '200':
+          description: Successful creation of object records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectRecordCreationResponse'
+        default:
+          description: Failed to create object records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Update Object Records
+      description: Update one or more records for a specific object.
+      operationId: updateObjectRecords
+      tags:
+        - Object Records
+      parameters:
+        - name: object_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the object.
+        - name: idParam
+          in: query
+          schema:
+            type: string
+          description: Unique field to identify records by, instead of id.
+      requestBody:
+        description: A list of object records to update, in either CSV or JSON format.
+        required: true
+        content:
+          text/csv:
+            schema:
+              type: string
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ObjectRecord'
+      responses:
+        '200':
+          description: Successful update of object records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectRecordUpdateResponse'
+        default:
+          description: Failed to update object records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete Object Records
+      description: Delete one or more records for a specific object.
+      operationId: deleteObjectRecords
+      tags:
+        - Object Records
+      parameters:
+        - name: object_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the object.
+        - name: idParam
+          in: query
+          schema:
+            type: string
+          description: Unique field to identify records by, instead of id.
+      requestBody:
+        description: A list of object record IDs to delete, in either CSV or JSON format.
+        required: true
+        content:
+          text/csv:
+            schema:
+              type: string
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+      responses:
+        '200':
+          description: Successful deletion of object records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectRecordDeleteResponse'
+        default:
+          description: Failed to delete object records.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /vobjects/{object_name}/{object_record_id}:
+    get:
+      summary: Retrieve an Object Record
+      description: Retrieves a single record for a specific object.
+      operationId: getObjectRecord
+      tags:
+        - Object Records
+      parameters:
+        - name: object_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the object.
+        - name: object_record_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the object record.
+      responses:
+        '200':
+          description: Successful retrieval of an object record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectRecordResponse'
+        default:
+          description: Failed to retrieve the object record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Update an Object Record
+      description: Updates a single record for a specific object.
+      operationId: updateObjectRecord
+      tags:
+        - Object Records
+      parameters:
+        - name: object_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the object.
+        - name: object_record_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the object record to update.
+      requestBody:
+        description: An object containing the fields to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ObjectRecord'
+      responses:
+        '200':
+          description: Successful update of the object record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        default:
+          description: Failed to update the object record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete an Object Record
+      description: Deletes a single record for a specific object.
+      operationId: deleteObjectRecord
+      tags:
+        - Object Records
+      parameters:
+        - name: object_name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The name of the object.
+        - name: object_record_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the object record to delete.
+      responses:
+        '200':
+          description: Successful deletion of the object record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        default:
+          description: Failed to delete the object record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /metadata/objects/documents/properties:
+    get:
+      summary: Retrieve All Document Fields
+      description: Retrieve all standard and custom document fields and field properties.
+      operationId: getAllDocumentFields
+      tags:
+        - Document Management
+      responses:
+        '200':
+          description: Successful retrieval of document fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentFieldCollectionResponse'
+        default:
+          description: Failed to retrieve document fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /metadata/objects/documents/types:
+    get:
+      summary: Retrieve All Document Types
+      description: Retrieve all document types.
+      operationId: getAllDocumentTypes
+      tags:
+        - Document Management
+      responses:
+        '200':
+          description: Successful retrieval of document types.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentTypeCollectionResponse'
+        default:
+          description: Failed to retrieve document types.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/documents:
+    get:
+      summary: Retrieve All Documents
+      description: Retrieve the latest version of documents and binders to which you have access.
+      operationId: getAllDocuments
+      tags:
+        - Document Management
+      parameters:
+        - name: named_filter
+          in: query
+          schema:
+            type: string
+            enum: [My Documents, Favorites, Recent Documents, Cart]
+        - name: scope
+          in: query
+          schema:
+            type: string
+            enum: [contents, all]
+        - name: versionscope
+          in: query
+          schema:
+            type: string
+            enum: [all]
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          schema:
+            type: string
+        - name: start
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful retrieval of documents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentCollectionResponse'
+        default:
+          description: Failed to retrieve documents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Create Single Document
+      description: Create a single document.
+      operationId: createSingleDocument
+      tags:
+        - Document Management
+      requestBody:
+        description: Document data and file.
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                name__v:
+                  type: string
+                type__v:
+                  type: string
+                lifecycle__v:
+                  type: string
+      responses:
+        '200':
+          description: Successful creation of the document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentCreationResponse'
+        default:
+          description: Failed to create the document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/documents/batch:
+    post:
+      summary: Create Multiple Documents
+      description: Create multiple documents at once with a CSV input file.
+      operationId: createMultipleDocuments
+      tags:
+        - Document Management
+      requestBody:
+        description: CSV file with document data.
+        required: true
+        content:
+          text/csv:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Successful creation of multiple documents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkDocumentResponse'
+        default:
+          description: Failed to create multiple documents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Update Multiple Documents
+      description: Bulk update editable field values on multiple documents.
+      operationId: updateMultipleDocuments
+      tags:
+        - Document Management
+      requestBody:
+        description: CSV file with document data to update.
+        required: true
+        content:
+          text/csv:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Successful update of multiple documents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkDocumentResponse'
+        default:
+          description: Failed to update multiple documents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete Multiple Documents
+      description: Delete all versions of multiple documents.
+      operationId: deleteMultipleDocuments
+      tags:
+        - Document Management
+      requestBody:
+        description: CSV file with document IDs to delete.
+        required: true
+        content:
+          text/csv:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Successful deletion of multiple documents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkDocumentResponse'
+        default:
+          description: Failed to delete multiple documents.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/documents/versions/batch:
+    delete:
+      summary: Delete Multiple Document Versions
+      description: Delete a specific version of multiple documents.
+      operationId: deleteMultipleDocumentVersions
+      tags:
+        - Document Management
+      requestBody:
+        description: CSV file with document version IDs to delete.
+        required: true
+        content:
+          text/csv:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Successful deletion of multiple document versions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkDocumentResponse'
+        default:
+          description: Failed to delete multiple document versions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/documents/{doc_id}:
+    get:
+      summary: Retrieve a Document
+      description: Retrieve all metadata from a document.
+      operationId: getDocument
+      tags:
+        - Document Management
+      parameters:
+        - name: doc_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful retrieval of the document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+        default:
+          description: Failed to retrieve the document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Update Single Document
+      description: Update editable field values on the latest version of a single document.
+      operationId: updateSingleDocument
+      tags:
+        - Document Management
+      parameters:
+        - name: doc_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Fields to update.
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful update of the document.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responseStatus:
+                    type: string
+                    enum: [SUCCESS]
+                  id:
+                    type: integer
+        default:
+          description: Failed to update the document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete Single Document
+      description: Delete all versions of a document.
+      operationId: deleteSingleDocument
+      tags:
+        - Document Management
+      parameters:
+        - name: doc_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful deletion of the document.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responseStatus:
+                    type: string
+                    enum: [SUCCESS]
+                  id:
+                    type: integer
+        default:
+          description: Failed to delete the document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/documents/{doc_id}/versions:
+    get:
+      summary: Retrieve Document Versions
+      description: Retrieve all versions of a document.
+      operationId: getDocumentVersions
+      tags:
+        - Document Management
+      parameters:
+        - name: doc_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful retrieval of document versions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentVersionCollectionResponse'
+        default:
+          description: Failed to retrieve document versions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/documents/{doc_id}/versions/{major_version}/{minor_version}:
+    get:
+      summary: Retrieve a Document Version
+      description: Retrieve all fields and values configured on a document version.
+      operationId: getDocumentVersion
+      tags:
+        - Document Management
+      parameters:
+        - name: doc_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: major_version
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: minor_version
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful retrieval of the document version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+        default:
+          description: Failed to retrieve the document version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/documents/{doc_id}/file:
+    get:
+      summary: Download Document File
+      description: Download the latest version of a document file.
+      operationId: downloadDocumentFile
+      tags:
+        - Document Management
+      parameters:
+        - name: doc_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful download of the document file.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        default:
+          description: Failed to download the document file.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/documents/{doc_id}/versions/{major_version}/{minor_version}/file:
+    get:
+      summary: Download Document Version File
+      description: Download a specific version of a document file.
+      operationId: downloadDocumentVersionFile
+      tags:
+        - Document Management
+      parameters:
+        - name: doc_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: major_version
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: minor_version
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful download of the document version file.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        default:
+          description: Failed to download the document version file.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/documents/{doc_id}/versions/{major_version}/{minor_version}/thumbnail:
+    get:
+      summary: Download Document Version Thumbnail
+      description: Download the thumbnail image file of a specific document version.
+      operationId: downloadDocumentVersionThumbnail
+      tags:
+        - Document Management
+      parameters:
+        - name: doc_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: major_version
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: minor_version
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful download of the thumbnail.
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        default:
+          description: Failed to download the thumbnail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/users:
+    get:
+      summary: Retrieve All Users
+      description: Retrieve a list of users.
+      operationId: getAllUsers
+      tags:
+        - Users & Groups
+      parameters:
+        - name: vaults
+          in: query
+          schema:
+            type: string
+          description: A comma-separated list of Vault IDs to retrieve users from. Use 'all' for all vaults or '-1' to exclude the current vault.
+        - name: exclude_vault_membership
+          in: query
+          schema:
+            type: boolean
+        - name: exclude_app_licensing
+          in: query
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          schema:
+            type: integer
+        - name: start
+          in: query
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCollectionResponse'
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Create Users
+      description: Create new user accounts or add existing users as cross-domain users.
+      operationId: createUsers
+      tags:
+        - Users & Groups
+      requestBody:
+        description: User data.
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responseStatus:
+                    type: string
+                    enum: [SUCCESS]
+                  id:
+                    type: integer
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/users/{id}:
+    get:
+      summary: Retrieve a User
+      description: Retrieve information for a single user.
+      operationId: getUser
+      tags:
+        - Users & Groups
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: exclude_vault_membership
+          in: query
+          schema:
+            type: boolean
+        - name: exclude_app_licensing
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: User details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Update a User
+      description: Update information for a single user.
+      operationId: updateUser
+      tags:
+        - Users & Groups
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: User data to update.
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responseStatus:
+                    type: string
+                    enum: [SUCCESS]
+                  id:
+                    type: integer
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Disable a User
+      description: Disable a user in a specific Vault or all Vaults in the domain.
+      operationId: disableUser
+      tags:
+        - Users & Groups
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: domain
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: User disabled successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responseStatus:
+                    type: string
+                    enum: [SUCCESS]
+                  id:
+                    type: integer
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/users/me/password:
+    post:
+      summary: Change My Password
+      description: Change the password for the currently authenticated user.
+      operationId: changeMyPassword
+      tags:
+        - Users & Groups
+      requestBody:
+        description: Current and new password.
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                password__v:
+                  type: string
+                  format: password
+                new_password__v:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Password changed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/users/{user_id}/vault_membership/{vault_id}:
+    put:
+      summary: Update Vault Membership
+      description: Update a user's membership in a specific Vault.
+      operationId: updateVaultMembership
+      tags:
+        - Users & Groups
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: vault_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Vault membership details.
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                active__v:
+                  type: boolean
+                security_profile__v:
+                  type: string
+                license_type__v:
+                  type: string
+      responses:
+        '200':
+          description: Vault membership updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/groups:
+    get:
+      summary: Retrieve All Groups
+      description: Retrieve all groups except Auto Managed groups.
+      operationId: getAllGroups
+      tags:
+        - Users & Groups
+      parameters:
+        - name: includeImplied
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: A list of groups.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupCollectionResponse'
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Create a Group
+      description: Create a new user-defined group.
+      operationId: createGroup
+      tags:
+        - Users & Groups
+      requestBody:
+        description: Group data.
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                label__v:
+                  type: string
+                members__v:
+                  type: string
+                security_profiles__v:
+                  type: string
+      responses:
+        '200':
+          description: Group created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responseStatus:
+                    type: string
+                    enum: [SUCCESS]
+                  id:
+                    type: integer
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /objects/groups/{group_id}:
+    get:
+      summary: Retrieve a Group
+      description: Retrieve information for a single group.
+      operationId: getGroup
+      tags:
+        - Users & Groups
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: includeImplied
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Group details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Update a Group
+      description: Update editable group field values.
+      operationId: updateGroup
+      tags:
+        - Users & Groups
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Group data to update.
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                label__v:
+                  type: string
+                members__v:
+                  type: string
+      responses:
+        '200':
+          description: Group updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responseStatus:
+                    type: string
+                    enum: [SUCCESS]
+                  id:
+                    type: integer
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete a Group
+      description: Delete a user-defined group.
+      operationId: deleteGroup
+      tags:
+        - Users & Groups
+      parameters:
+        - name: group_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Group deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responseStatus:
+                    type: string
+                    enum: [SUCCESS]
+                  id:
+                    type: integer
+        default:
+          description: An error occurred.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Group:
+      type: object
+      properties:
+        id:
+          type: integer
+        name__v:
+          type: string
+        label__v:
+          type: string
+        members__v:
+          type: array
+          items:
+            type: integer
+      additionalProperties: true
+    GroupResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              group:
+                $ref: '#/components/schemas/Group'
+    GroupCollectionResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              group:
+                $ref: '#/components/schemas/Group'
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_name__v:
+          type: string
+        user_first_name__v:
+          type: string
+        user_last_name__v:
+          type: string
+      additionalProperties: true
+    UserResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/User'
+    UserCollectionResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        size:
+          type: integer
+        start:
+          type: integer
+        limit:
+          type: integer
+        sort:
+          type: string
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/User'
+    Document:
+      type: object
+      properties:
+        id:
+          type: integer
+        version_id:
+          type: string
+        binder__v:
+          type: boolean
+      additionalProperties: true
+    DocumentCollectionResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        size:
+          type: integer
+        start:
+          type: integer
+        limit:
+          type: integer
+        documents:
+          type: array
+          items:
+            type: object
+            properties:
+              document:
+                $ref: '#/components/schemas/Document'
+    DocumentCreationResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        id:
+          type: integer
+    BulkDocumentResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              responseStatus:
+                type: string
+                enum: [SUCCESS, FAILURE]
+              id:
+                type: integer
+              external_id__v:
+                type: string
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+    DocumentField:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        required:
+          type: boolean
+        editable:
+          type: boolean
+    DocumentFieldCollectionResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentField'
+    DocumentType:
+      type: object
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+          format: uri
+    DocumentTypeCollectionResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentType'
+    DocumentVersion:
+      type: object
+      properties:
+        number:
+          type: string
+        value:
+          type: string
+          format: uri
+    DocumentVersionCollectionResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentVersion'
+    DocumentResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        document:
+          $ref: '#/components/schemas/Document'
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentVersion'
+    ObjectRecord:
+      type: object
+      properties:
+        id:
+          type: string
+      additionalProperties: true
+    ObjectRecordCollectionResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectRecord'
+    ObjectRecordResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+        data:
+          $ref: '#/components/schemas/ObjectRecord'
+    ObjectRecordCreationData:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        event:
+          type: string
+    ObjectRecordCreationResult:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS, FAILURE]
+        data:
+          $ref: '#/components/schemas/ObjectRecordCreationData'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    ObjectRecordCreationResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectRecordCreationResult'
+    ObjectRecordUpdateResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS, WARNING]
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              responseStatus:
+                type: string
+                enum: [SUCCESS, FAILURE, WARNING]
+              data:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  url:
+                    type: string
+                    format: uri
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+    ObjectRecordDeleteResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              responseStatus:
+                type: string
+                enum: [SUCCESS, FAILURE]
+              data:
+                type: object
+                properties:
+                  id:
+                    type: string
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+    QueryDescribeField:
+      type: object
+      properties:
+        type:
+          type: string
+        required:
+          type: boolean
+        name:
+          type: string
+        label:
+          type: string
+        max_length:
+          type: integer
+    QueryDescribeObject:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        label_plural:
+          type: string
+    QueryDescribe:
+      type: object
+      properties:
+        object:
+          $ref: '#/components/schemas/QueryDescribeObject'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryDescribeField'
+    QueryResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+        queryDescribe:
+          $ref: '#/components/schemas/QueryDescribe'
+        responseDetails:
+          $ref: '#/components/schemas/ResponseDetails'
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    ResponseDetails:
+      type: object
+      properties:
+        total:
+          type: integer
+        size:
+          type: integer
+        offset:
+          type: integer
+        limit:
+          type: integer
+        next_page:
+          type: string
+          format: uri
+        previous_page:
+          type: string
+          format: uri
+    AuthProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        description:
+          type: string
+        vault_session_endpoint:
+          type: string
+        use_adal:
+          type: boolean
+        use_msal:
+          type: boolean
+        as_metadata:
+          type: object
+        oauthProviderType:
+          type: string
+    AuthDiscoveryData:
+      type: object
+      properties:
+        auth_type:
+          type: string
+          enum: [password, sso]
+        auth_profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthProfile'
+    AuthDiscoveryResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        errors:
+          type: array
+          items: {}
+        data:
+          $ref: '#/components/schemas/AuthDiscoveryData'
+    VaultInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+    AuthResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        sessionId:
+          type: string
+          description: The session ID to be used in subsequent API calls.
+        userId:
+          type: integer
+          description: The ID of the authenticated user.
+        vaultId:
+          type: integer
+          description: The ID of the Vault for the session.
+        vaultIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/VaultInfo'
+    DelegatedVault:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        dns:
+          type: string
+        delegator_userid:
+          type: string
+    DelegationsResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        delegated_vaults:
+          type: array
+          items:
+            $ref: '#/components/schemas/DelegatedVault'
+    DelegatedSessionResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+        delegated_sessionid:
+          type: string
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [FAILURE]
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    SuccessResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: string
+          enum: [SUCCESS]
+  securitySchemes:
+    VaultSession:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: |-
+        Veeva Vault API authentication uses a session ID. After acquiring a session ID,
+        include it in the Authorization HTTP request header for all subsequent API requests.
+        The session ID can also be provided as a Bearer token.
+security:
+  - VaultSession: []
